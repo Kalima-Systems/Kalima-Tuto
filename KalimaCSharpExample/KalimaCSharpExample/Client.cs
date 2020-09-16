@@ -2,6 +2,7 @@
 using org.kalima.kalimamq.nodelib;
 using org.kalima.kalimamq.message;
 using org.kalima.kalimamq.crypto;
+using org.kalima.util;
 using org.kalima.cache.lib;
 using ikvm.extensions;
 

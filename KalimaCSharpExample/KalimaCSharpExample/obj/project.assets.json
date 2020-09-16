@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Documents\\Kalima\\gitHub\\KalimaTuto\\KalimaCSharpExample\\KalimaCSharpExample\\KalimaCSharpExample.csproj",
+      "projectUniqueName": "F:\\Documents\\Kalima\\gitHub\\Kalima-Tuto\\KalimaCSharpExample\\KalimaCSharpExample\\KalimaCSharpExample.csproj",
       "projectName": "KalimaCSharpExample",
-      "projectPath": "F:\\Documents\\Kalima\\gitHub\\KalimaTuto\\KalimaCSharpExample\\KalimaCSharpExample\\KalimaCSharpExample.csproj",
+      "projectPath": "F:\\Documents\\Kalima\\gitHub\\Kalima-Tuto\\KalimaCSharpExample\\KalimaCSharpExample\\KalimaCSharpExample.csproj",
       "packagesPath": "C:\\Users\\Jerome\\.nuget\\packages\\",
-      "outputPath": "F:\\Documents\\Kalima\\gitHub\\KalimaTuto\\KalimaCSharpExample\\KalimaCSharpExample\\obj\\",
+      "outputPath": "F:\\Documents\\Kalima\\gitHub\\Kalima-Tuto\\KalimaCSharpExample\\KalimaCSharpExample\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

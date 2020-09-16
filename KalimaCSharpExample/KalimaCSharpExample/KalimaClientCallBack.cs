@@ -2,6 +2,7 @@
 using org.kalima.kalimamq.message;
 using org.kalima.kalimamq.nodelib;
 using org.kalima.kalimamq.netlib;
+using org.kalima.util;
 using org.kalima.cache.lib;
 using java.util.concurrent.atomic;
 using java.nio.channels;

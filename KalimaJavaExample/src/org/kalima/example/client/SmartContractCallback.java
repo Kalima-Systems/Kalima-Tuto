@@ -23,7 +23,7 @@ import com.google.gson.GsonBuilder;
 public class SmartContractCallback implements MemCacheCallback {
 
 	private final String GIT_USERNAME = "user";
-	private final String GIT_URL = "https://github.com/alegendre/";
+	private final String GIT_URL = "https://github.com/Kalima-Systems/";
 	private String cachePath;
 	private Logger logger;
 	private ContractManager contractManager;
@@ -74,7 +74,7 @@ public class SmartContractCallback implements MemCacheCallback {
 	}
 	
 	private void handleSensors(KMsg kMsg) {
-		String scriptPath = logger.getBasePath() + "/git/KalimaTuto/etc/scripts/reverse_string.js";
+		String scriptPath = logger.getBasePath() + "/git/Kalima-Tuto/etc/scripts/reverse_string.js";
 		ContractHousing contractHousing = this.contractManager.getContractHousing(scriptPath);
 		if(contractHousing != null) {
 			SimpleBindings bindings = contractHousing.getBindings();
