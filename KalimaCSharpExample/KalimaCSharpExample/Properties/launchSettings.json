@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KalimaCSharpExample": {
+      "commandName": "Project",
+      "commandLineArgs": "../../../etc/cfg/node.config"
+    }
+  }
+}
