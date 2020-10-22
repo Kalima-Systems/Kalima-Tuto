@@ -58,16 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
         final EditText editText = findViewById(R.id.edit_send);
         Button testSend = findViewById(R.id.test_send);
-        testSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    // send message in cachePath /test with key "key"
-                    kalimaServiceAPI.set("/alarms/fire", "key", editText.getText().toString().getBytes(), "-1");
-                    editText.setText("");
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+        testSend.setOnClickListener(v -> {
+            try {
+                // send message in cachePath /test with key "key"
+                kalimaServiceAPI.set("/alarms/fire", "key", editText.getText().toString().getBytes(), "-1");
+                editText.setText("");
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
         });
 
@@ -77,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         // You need to choose an unused port
         kalimaServicePreferences.setServerPort(9150);
         // Notaries address and ports (ipAddress:port), separated with ","
-        kalimaServicePreferences.setNotariesList("62.171.131.154:9090,62.171.130.233:9090,62.171.131.157:9090,144.91.108.243:9090");
+        kalimaServicePreferences.setNotariesList("167.86.124.188:9090,62.171.130.233:9090,62.171.131.157:9090,144.91.108.243:9090");
         // Directory for Kalima files storage
         kalimaServicePreferences.setFilesPath(Environment.getExternalStorageDirectory().toString() + "/Kalima/jit/KalimaAndroidExample/");
         // Path for log directory

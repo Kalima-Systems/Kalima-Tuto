@@ -7,12 +7,17 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
+
+plugins {
+    id "org.sonarqube" version "3.0"
+}
+
 
 allprojects {
     repositories {
@@ -24,4 +29,15 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+sonarqube {
+    properties{
+        property "sonar.host.url", "http://161.97.85.220:9000"
+        property "sonar.host.login", "bf59b10df425afe0852413db7ab0831cb55c91fe"
+        property "sonar.projectName", "KalimaAndroidExample"
+        property "sonar.projectKey", "KalimaAndroidExample"
+        property "sonar.sources", "src"
+        property "sonar.java.binaries", "build"
+    }
 }
