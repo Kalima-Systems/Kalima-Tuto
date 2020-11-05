@@ -6,6 +6,7 @@ Documentations : etc/doc
 - JavaExample : Tuto pour se connecter et interagir avec la blockchain en Java
 - AndroidExample : Tuto pour se connecter et interagir avec la blockchain via le service Kalima pour Android
 - CSharpExample : Tuto pour se connecter et interagir avec la blockchain en C#
+- nodeJSAPI : Appels REST vers Kalima
 
 Librairies : etc/lib
 
