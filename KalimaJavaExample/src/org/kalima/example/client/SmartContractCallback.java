@@ -29,7 +29,7 @@ public class SmartContractCallback implements MemCacheCallback {
 	private ContractManager contractManager;
 	private Client client;
 	private Gson gson = new GsonBuilder().setDateFormat("MMM dd, yyyy h:mm:ss a").create();
-	
+
 	public SmartContractCallback(String cachePath, Client client, ContractManager contractManager) {
 		super();
 		this.cachePath = cachePath;
@@ -60,7 +60,7 @@ public class SmartContractCallback implements MemCacheCallback {
 			handlePassword(kMsg);
 		}
 	}
-	
+
 	private void handleScripts(KMsg kMsg) {
 		try {
 			KMsg passwordMsg;
@@ -72,23 +72,17 @@ public class SmartContractCallback implements MemCacheCallback {
 			logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.ERR, e);
 		}
 	}
-	
+
 	private void handleSensors(KMsg kMsg) {
 		String scriptPath = logger.getBasePath() + "/git/Kalima-Tuto/etc/scripts/reverse_string.js";
-		ContractHousing contractHousing = this.contractManager.getContractHousing(scriptPath);
-		if(contractHousing != null) {
-			SimpleBindings bindings = contractHousing.getBindings();
-			bindings.put("kMsg", kMsg);
-			bindings.put("logger", logger);
-			try {
-				String result = (String) contractManager.runScript(scriptPath);
-				logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.INFO, "script result=" + result);
-			} catch (Exception e) {
-				logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.ERR, e);
-			}	
-		}
+		try {
+			String result = (String) contractManager.runFunction(scriptPath, "main", logger, kMsg);
+			logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.INFO, "script result=" + result);
+		} catch (Exception e) {
+			logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.ERR, e);
+		}			
 	}
-	
+
 	private void handlePassword(KMsg kMsg) {
 		for(Map.Entry<String, KMessage> entry : client.getClone().getMemCache("/Kalima_Scripts").getKvmap().entrySet()) {
 			KMsg scriptMsg = KMsg.setMessage(entry.getValue());
