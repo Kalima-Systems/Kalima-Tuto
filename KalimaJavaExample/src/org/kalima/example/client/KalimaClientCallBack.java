@@ -17,12 +17,16 @@ public class KalimaClientCallBack implements ClientCallback {
 	private Logger logger ;
 	private Node node ; 
 	private ContractManager contractManager;
+	private String gitUser; 
+	private String gitPassword;
 		
-	public KalimaClientCallBack(Client client) {
+	public KalimaClientCallBack(Client client, String gitUser, String gitPassword) {
 		this.client = client;
 		this.node = client.getNode() ; 
 		this.logger = node.getLogger();
 		contractManager = new ContractManager(logger);
+		this.gitUser = gitUser;
+		this.gitPassword = gitPassword;
 	}
 
 	//isServer data received by a nioServer if true
@@ -53,6 +57,6 @@ public class KalimaClientCallBack implements ClientCallback {
 
 	@Override
 	public void onNewCache(String cachePath) {
-		client.getClone().addListnerForUpdate(new SmartContractCallback(cachePath, client, contractManager));		
+		if(gitUser != null && gitPassword != null) client.getClone().addListnerForUpdate(new SmartContractCallback(cachePath, client, contractManager, gitUser, gitPassword));		
 	}
 }

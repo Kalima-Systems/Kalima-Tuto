@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 
 import org.kalima.cache.lib.Clone;
 import org.kalima.cache.lib.ClonePreferences;
@@ -27,6 +28,8 @@ public class Client implements KalimaNode {
 	private KalimaClientCallBack clientCallBack;
 	private ClonePreferences clonePreferences;
 	private byte[] devId ;
+	private String gitUser;
+	private String gitPassword;
 
 	public Client(String[] args) {
 		clonePreferences = new ClonePreferences(args[0]);
@@ -35,6 +38,17 @@ public class Client implements KalimaNode {
 
 	public void run() {
 		try {
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Do you want use Smart Contracts ? (Y/n)");
+			String resp = scanner.nextLine();
+			if(resp.equalsIgnoreCase("Y")) {
+				System.out.println("Enter git username: ");
+				gitUser = scanner.nextLine();
+				System.out.println("Enter git password: ");
+				gitPassword = scanner.nextLine();
+			}
+			scanner.close();
+			
 			initComponents();
 			Thread.sleep(2000);
 			System.out.println("GO");
@@ -78,7 +92,7 @@ public class Client implements KalimaNode {
 		clone = new Clone(clonePreferences, node);
 
 		serverCallBack = new KalimaServerCallBack();
-		clientCallBack = new KalimaClientCallBack(this);
+		clientCallBack = new KalimaClientCallBack(this, gitUser, gitPassword);
 
 		try {
 			node.connect(serverCallBack, clientCallBack);

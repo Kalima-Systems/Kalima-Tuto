@@ -3,16 +3,9 @@ package org.kalima.example.client;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Map;
 
-import javax.script.SimpleBindings;
-
-import org.kalima.cache.lib.Clone;
 import org.kalima.cache.lib.KMsg;
-import org.kalima.contractManager.ContractHousing;
 import org.kalima.contractManager.ContractManager;
-import org.kalima.dbmodel.Auth;
 import org.kalima.kalimamq.message.KMessage;
 import org.kalima.kalimamq.nodelib.MemCacheCallback;
 import org.kalima.util.Logger;
@@ -22,20 +15,24 @@ import com.google.gson.GsonBuilder;
 
 public class SmartContractCallback implements MemCacheCallback {
 
-	private final String GIT_USERNAME = "user";
-	private final String GIT_URL = "https://github.com/Kalima-Systems/";
+	private String GIT_SERVER = "http://95.111.241.13:3000/";
+	private String GIT_HOST = "andre.legendre/";
 	private String cachePath;
 	private Logger logger;
 	private ContractManager contractManager;
 	private Client client;
 	private Gson gson = new GsonBuilder().setDateFormat("MMM dd, yyyy h:mm:ss a").create();
+	private String gitUser;
+	private String gitPassword;
 
-	public SmartContractCallback(String cachePath, Client client, ContractManager contractManager) {
+	public SmartContractCallback(String cachePath, Client client, ContractManager contractManager, String gitUser, String password) {
 		super();
 		this.cachePath = cachePath;
 		this.logger = client.getLogger();
 		this.contractManager = contractManager;
 		this.client = client;
+		this.gitUser = gitUser;
+		this.gitPassword = password;
 	}
 
 	@Override
@@ -56,43 +53,26 @@ public class SmartContractCallback implements MemCacheCallback {
 			handleScripts(kMsg);
 		} else if(cachePath.equals("/sensors")) {
 			handleSensors(kMsg);
-		} else if(cachePath.equals("/Kalima_Password") && kMsg.getKey().equals("git/" + GIT_USERNAME)) {
-			handlePassword(kMsg);
 		}
 	}
 
 	private void handleScripts(KMsg kMsg) {
 		try {
-			KMsg passwordMsg;
-			if((passwordMsg=client.getClone().get("/Kalima_Password", "git/" + GIT_USERNAME)) != null) {
-				String password = gson.fromJson(new String(passwordMsg.getBody()), Auth.class).getPassword();
-				contractManager.loadContract(GIT_URL, GIT_USERNAME, password, kMsg.getKey(), kMsg.getBody());
-			}
+			contractManager.loadContract(GIT_SERVER + GIT_HOST, gitUser, gitPassword, kMsg.getKey(), kMsg.getBody());
 		} catch (NoSuchAlgorithmException | IOException e) {
 			logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.ERR, e);
 		}
 	}
 
+	//Smart Contract execution example
 	private void handleSensors(KMsg kMsg) {
-		String scriptPath = logger.getBasePath() + "/git/Kalima-Tuto/etc/scripts/reverse_string.js";
+		String scriptPath = logger.getBasePath() + "/git/KalimaContractsTuto/KalimaExamples/reverse_string.js";
 		try {
 			String result = (String) contractManager.runFunction(scriptPath, "main", logger, kMsg);
 			logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.INFO, "script result=" + result);
 		} catch (Exception e) {
 			logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.ERR, e);
 		}			
-	}
-
-	private void handlePassword(KMsg kMsg) {
-		for(Map.Entry<String, KMessage> entry : client.getClone().getMemCache("/Kalima_Scripts").getKvmap().entrySet()) {
-			KMsg scriptMsg = KMsg.setMessage(entry.getValue());
-			try {
-				String password = gson.fromJson(new String(kMsg.getBody()), Auth.class).getPassword();
-				contractManager.loadContract(GIT_URL, GIT_USERNAME, password, scriptMsg.getKey(), scriptMsg.getBody());
-			} catch (NoSuchAlgorithmException | IOException e) {
-				logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.ERR, e);
-			}
-		}
 	}
 
 	@Override
