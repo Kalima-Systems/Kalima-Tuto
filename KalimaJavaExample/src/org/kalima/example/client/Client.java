@@ -85,7 +85,7 @@ public class Client implements KalimaNode {
 				(byte)0x28, (byte)0xff, (byte)0x10, (byte)0xe9
 		};
 
-		devId = KKeyStore.setDevId(clonePreferences.getLoadConfig().getFilesPath(), key, logger);
+		devId = KKeyStore.setDevId(clonePreferences.getLoadConfig(), key, logger);
 
 		node = new Node(clonePreferences.getLoadConfig());
 		node.setDevID(devId);

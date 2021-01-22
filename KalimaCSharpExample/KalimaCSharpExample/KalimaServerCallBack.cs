@@ -27,9 +27,9 @@ namespace KalimaCSharpExample
 			
 		public void removeCache(String cachePath) {}
 
-		public void processSnapshot(SocketChannel soc, String cachePathSeqs) {}
+		public void processSnapshot(SocketChannel soc, String cachePathSeqs, bool fromNotaryNode) {}
 			
-		public KMessage processNextMessage(KMessage msg, SocketChannel soc) {
+		public KMessage processNextMessage(KMessage msg) {
 			return null;
 		}
 			

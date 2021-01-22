@@ -38,10 +38,10 @@ public class KalimaServerCallBack implements ServerCallback {
 	public void removeCache(String cachePath) {}
 
 	@Override
-	public void processSnapshot(SocketChannel soc, String cachePathSeqs) {}
+	public void processSnapshot(SocketChannel soc, String cachePathSeqs, boolean fromNotaryNode) {}
 
 	@Override
-	public KMessage processNextMessage(KMessage msg, SocketChannel soc) {
+	public KMessage processNextMessage(KMessage msg) {
 		return null;
 	}
 

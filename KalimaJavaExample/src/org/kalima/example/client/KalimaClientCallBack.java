@@ -41,7 +41,7 @@ public class KalimaClientCallBack implements ClientCallback {
 	@Override
 	public void onConnectionChanged(int status, NioClient nioClient) {
 		logger.log_srvMsg("ExampleClientNode", "KalimaClientCallBack", Logger.DEBUG, "onConnectionChanged status=" + status);
-		client.getClone().onConnectedChange( (status==Node.CLIENT_STATUS_CONNECTED) ? new AtomicBoolean(true) : new AtomicBoolean(false), nioClient);
+		client.getClone().onConnectedChange( (status==Node.CLIENT_STATUS_CONNECTED) ? new AtomicBoolean(true) : new AtomicBoolean(false), nioClient, false);
 	}
 
 	@Override
