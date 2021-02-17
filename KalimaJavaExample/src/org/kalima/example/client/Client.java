@@ -56,7 +56,7 @@ public class Client implements KalimaNode {
 			// Ici on envoit 10 messages "hello x" dans le channel "/sensors" avec l'id unique "key"
 			// Comme l'id unique reste le meme, "hello 1" sera ecrase par "hello2" et ainsi de suite
 			// Cependant toutes les valeurs persisteront dans l'historique
-			// new KProps("10") place le ttl (time to live) a 10 seconde. ce qui signifie que le message sera supprime dans 10 secondes
+			// new KProps("10") place le ttl (time to live) a 10 seconde. c
 			for(int i=0 ; i<10 ; i++) {
 				String body = "hello" + i;
 				KMsg kMsg = new KMsg(0);				

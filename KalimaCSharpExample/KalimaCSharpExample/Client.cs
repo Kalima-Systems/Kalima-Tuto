@@ -38,10 +38,10 @@ namespace KalimaCSharpExample
             initComponents();
             System.Threading.Thread.Sleep(2000);
 
-            // Ici on envoit 10 messages "hello x" dans le channel "/sensors" avec l'id unique "key"
-            // Comme l'id unique reste le meme, "hello 1" sera ecrase par "hello2" et ainsi de suite
-            // Cependant toutes les valeurs persisteront dans l'historique
-            // new KProps("10") place le ttl (time to live) a 10 seconde. ce qui signifie que le message sera supprimé dans 10 secondes
+            // Here we make 10 transactions with body "hello x" in cache path "/sensors", with the unique ID "key"
+            // Because the id is the same for all transactions, "hello 1" will be replaced by "hello 2", then by "hello 3", etc, in memCaches
+            // but all transactions are still present in blockchain
+            // new KProps("10") set the ttl (time to live) to 10 seconds. So, the record will be automatically deleted in memCaches after 10 seconds
             for (int i = 0; i < 10; i++)
             {
                 String body = "hello" + i;
