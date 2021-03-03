@@ -45,11 +45,6 @@ public class KalimaClientCallBack implements ClientCallback {
 	}
 
 	@Override
-	public void onCacheDeleted(String cacheSubPath) {
-		logger.log_srvMsg("ExampleClientNode", "KalimaClientCallBack", Logger.DEBUG, "onCacheDeleted cacheSubPath=" + cacheSubPath);
-	}
-
-	@Override
 	public void putRequestData(SocketChannel ch, KMessage msg) {}
 
 	@Override
@@ -58,5 +53,11 @@ public class KalimaClientCallBack implements ClientCallback {
 	@Override
 	public void onNewCache(String cachePath) {
 		if(gitUser != null && gitPassword != null) client.getClone().addListnerForUpdate(new SmartContractCallback(cachePath, client, contractManager, gitUser, gitPassword));		
+	}
+
+	@Override
+	public void onCacheSynchronized(String arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -27,7 +27,6 @@ public class Client implements KalimaNode {
 	private KalimaServerCallBack serverCallBack;
 	private KalimaClientCallBack clientCallBack;
 	private ClonePreferences clonePreferences;
-	private byte[] devId ;
 	private String gitUser;
 	private String gitPassword;
 
@@ -53,14 +52,13 @@ public class Client implements KalimaNode {
 			Thread.sleep(2000);
 			System.out.println("GO");
 
-			// Ici on envoit 10 messages "hello x" dans le channel "/sensors" avec l'id unique "key"
-			// Comme l'id unique reste le meme, "hello 1" sera ecrase par "hello2" et ainsi de suite
-			// Cependant toutes les valeurs persisteront dans l'historique
-			// new KProps("10") place le ttl (time to live) a 10 seconde. c
+			// Here we make 10 transactions with body "hello x" in cache path "/sensors", with key "keyx"
+			// new KProps("10") set the ttl (time to live) to 10 seconds. So, the record will be automatically deleted in memCaches after 10 second
+			// But of course, all transactions are still present in blockchain
 			for(int i=0 ; i<10 ; i++) {
 				String body = "hello" + i;
 				KMsg kMsg = new KMsg(0);				
-				node.sendToNotaryNodes(kMsg.getMessage(devId, KMessage.PUB, "/sensors", "key" + i, body.getBytes(), new KProps("10")));
+				node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, "/sensors", "key" + i, body.getBytes(), new KProps("10")));
 				Thread.sleep(1000);
 			}
 
@@ -73,22 +71,12 @@ public class Client implements KalimaNode {
 		for(Map.Entry<String, KMessage> entry : clone.getMemCache(cachePath).getKvmap().entrySet()) {
 			KMsg msg = KMsg.setMessage(entry.getValue());
 			KMsg kMsg = new KMsg(0);
-			node.sendToNotaryNodes(kMsg.getMessage(devId, KMsg.PUB, cachePath, msg.getKey(), "".getBytes(), new KProps("-1")));
+			node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMsg.PUB, cachePath, msg.getKey(), "".getBytes(), new KProps("-1")));
 		}
 	}
 
 	public void initComponents(){
-		byte[] key = new byte[] {
-				(byte)0x20, (byte)0xf7, (byte)0xdf, (byte)0xe7,
-				(byte)0x18, (byte)0x26, (byte)0x0b, (byte)0x85,
-				(byte)0xff, (byte)0xc0, (byte)0x9d, (byte)0x54,
-				(byte)0x28, (byte)0xff, (byte)0x10, (byte)0xe9
-		};
-
-		devId = KKeyStore.setDevId(clonePreferences.getLoadConfig(), key, logger);
-
 		node = new Node(clonePreferences.getLoadConfig());
-		node.setDevID(devId);
 		clone = new Clone(clonePreferences, node);
 
 		serverCallBack = new KalimaServerCallBack();

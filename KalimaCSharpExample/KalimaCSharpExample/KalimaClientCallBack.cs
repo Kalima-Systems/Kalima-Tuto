@@ -33,15 +33,14 @@ namespace KalimaCSharpExample
 			client.getClone().onConnectedChange( (status==Node.CLIENT_STATUS_CONNECTED) ? new AtomicBoolean(true) : new AtomicBoolean(false), nioClient, false);
 		}
 
-		public void onCacheDeleted (string cacheSubPath){
-			logger.log_srvMsg ("ExampleClientNode", "KalimaClientCallBack", Logger.DEBUG, "onCacheDeleted cacheSubPath=" + cacheSubPath);
-		}
-
 		public void putRequestData(SocketChannel ch, KMessage msg) {}
 
 		public void onNewVersion(int majver, int minver) {}
 
 		public void onNewCache(String cachePath) {}
-	}
+
+        public void onCacheSynchronized(string str)
+        {}
+    }
 }
 
