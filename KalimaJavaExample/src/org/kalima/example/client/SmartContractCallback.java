@@ -51,9 +51,8 @@ public class SmartContractCallback implements MemCacheCallback {
 		KMsg kMsg = KMsg.setMessage(msg);
 		if(cachePath.contentEquals("/Kalima_Scripts")) {
 			handleScripts(kMsg);
-		} else if(cachePath.equals("/sensors")) {
-			handleSensors(kMsg);
 		}
+		runScript(kMsg);
 	}
 
 	private void handleScripts(KMsg kMsg) {
@@ -65,10 +64,10 @@ public class SmartContractCallback implements MemCacheCallback {
 	}
 
 	//Smart Contract execution example
-	private void handleSensors(KMsg kMsg) {
-		String scriptPath = logger.getBasePath() + "/git/KalimaContractsTuto/KalimaExamples/reverse_string.js";
+	private void runScript(KMsg kMsg) {
+		String scriptPath = logger.getBasePath() + "/git/KalimaContractsTuto" + kMsg.getCachePath() + ".js";
 		try {
-			String result = (String) contractManager.runFunction(scriptPath, "main", logger, kMsg);
+			String result = (String) contractManager.runFunction(scriptPath, "main", logger, kMsg, client.getClone(), client.getNode());
 			logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.INFO, "script result=" + result);
 		} catch (Exception e) {
 			logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.ERR, e);
