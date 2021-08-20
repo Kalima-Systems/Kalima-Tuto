@@ -41,9 +41,6 @@ public class SmartContractCallback implements MemCacheCallback {
 	}
 
 	@Override
-	public void onCacheDeleted() {}
-
-	@Override
 	public void onConnectionChanged(int status) {}
 
 	@Override
@@ -52,7 +49,7 @@ public class SmartContractCallback implements MemCacheCallback {
 		if(cachePath.contentEquals("/Kalima_Scripts")) {
 			handleScripts(kMsg);
 		}
-		runScript(kMsg);
+		runContract(kMsg);
 	}
 
 	private void handleScripts(KMsg kMsg) {
@@ -64,11 +61,14 @@ public class SmartContractCallback implements MemCacheCallback {
 	}
 
 	//Smart Contract execution example
-	private void runScript(KMsg kMsg) {
+	private void runContract(KMsg kMsg) {
+		if(client.getNode().getSyncingKCaches().get(kMsg.getCachePath()))
+			return;
 		String scriptPath = logger.getBasePath() + "/git/KalimaContractsTuto" + kMsg.getCachePath() + ".js";
 		try {
 			String result = (String) contractManager.runFunction(scriptPath, "main", logger, kMsg, client.getClone(), client.getNode());
 			logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.INFO, "script result=" + result);
+			System.out.println("script " + scriptPath + " result=" + result);
 		} catch (Exception e) {
 			logger.log_srvMsg("ExampleClientNode", "TableCallback", Logger.ERR, e);
 		}			

@@ -3,6 +3,7 @@ package org.kalima.example.client;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.kalima.cache.lib.CacheComparator;
 import org.kalima.cache.lib.KMsg;
 import org.kalima.contractManager.ContractManager;
 import org.kalima.kalimamq.message.KMessage;
@@ -19,6 +20,7 @@ public class KalimaClientCallBack implements ClientCallback {
 	private ContractManager contractManager;
 	private String gitUser; 
 	private String gitPassword;
+	
 		
 	public KalimaClientCallBack(Client client, String gitUser, String gitPassword) {
 		this.client = client;
@@ -34,7 +36,8 @@ public class KalimaClientCallBack implements ClientCallback {
 	public void putData(SocketChannel ch, KMessage msg) {
 		KMsg kMsg = KMsg.setMessage(msg);
 		if(kMsg.getType()!=KMsg.ADMIN) {
-			client.getClone().set(kMsg.getCachePath(), kMsg, true, false);	
+			client.getClone().set(kMsg.getCachePath(), kMsg, true, false);
+			System.out.println("putData cachePath=" + kMsg.getCachePath() + " key=" + kMsg.getKey() + " body=" + new String(kMsg.getBody()));
 		}
 	}
 
@@ -52,12 +55,11 @@ public class KalimaClientCallBack implements ClientCallback {
 
 	@Override
 	public void onNewCache(String cachePath) {
-		if(gitUser != null && gitPassword != null) client.getClone().addListnerForUpdate(new SmartContractCallback(cachePath, client, contractManager, gitUser, gitPassword));		
+		if(gitUser != null && gitPassword != null) client.getClone().addListnerForUpdate(new SmartContractCallback(cachePath, client, contractManager, gitUser, gitPassword));				
 	}
 
 	@Override
-	public void onCacheSynchronized(String arg0) {
-		// TODO Auto-generated method stub
+	public void onCacheSynchronized(String cachePath) {
 		
 	}
 }

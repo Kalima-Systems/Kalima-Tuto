@@ -14,7 +14,6 @@ namespace KalimaCSharpExample
         private Node node;
         private Clone clone;
         private Logger logger;
-        private KalimaServerCallBack kalimaServerCallback;
         private KalimaClientCallBack kalimaClientCallback;
         private ClonePreferences clonePreferences;
 
@@ -36,6 +35,7 @@ namespace KalimaCSharpExample
             logger = clonePreferences.getLoadConfig().getLogger();
             initComponents();
             System.Threading.Thread.Sleep(2000);
+            Console.WriteLine("GO");
 
             // Here we make 10 transactions with body "hello x" in cache path "/sensors", with key "keyx"
             // new KProps("10") set the ttl (time to live) to 10 seconds. So, the record will be automatically deleted in memCaches after 10 second
@@ -54,10 +54,9 @@ namespace KalimaCSharpExample
             node = new Node(clonePreferences.getLoadConfig());
             clone = new Clone(clonePreferences, node);
 
-            kalimaServerCallback = new KalimaServerCallBack();
             kalimaClientCallback = new KalimaClientCallBack(this);
 
-            node.connect(kalimaServerCallback, kalimaClientCallback);
+            node.connect(null, kalimaClientCallback);
         }
 
         public Node getNode()

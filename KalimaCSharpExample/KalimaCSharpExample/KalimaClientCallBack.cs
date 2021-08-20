@@ -26,6 +26,7 @@ namespace KalimaCSharpExample
 		public void putData(SocketChannel ch, KMessage msg) {
 			KMsg kMsg = KMsg.setMessage (msg);
 			client.getClone ().set (kMsg.getCachePath(), kMsg, true, false);
+			Console.WriteLine("putData cachePath=" + kMsg.getCachePath() + " key=" + kMsg.getKey() + " body=" + System.Text.Encoding.Default.GetString(kMsg.getBody()));
 		}
 
 		public void onConnectionChanged(int status, NioClient nioClient){

@@ -24,7 +24,6 @@ public class Client implements KalimaNode {
 	private Node node;
 	private Clone clone;
 	private Logger logger;
-	private KalimaServerCallBack serverCallBack;
 	private KalimaClientCallBack clientCallBack;
 	private ClonePreferences clonePreferences;
 	private String gitUser;
@@ -56,7 +55,7 @@ public class Client implements KalimaNode {
 			// new KProps("10") set the ttl (time to live) to 10 seconds. So, the record will be automatically deleted in memCaches after 10 second
 			// But of course, all transactions are still present in blockchain
 			for(int i=0 ; i<10 ; i++) {
-				String body = "hello" + i;
+				String body = String.valueOf(21 + i);
 				KMsg kMsg = new KMsg(0);				
 				node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, "/sensors", "key" + i, body.getBytes(), new KProps("10")));
 				Thread.sleep(1000);
@@ -79,11 +78,10 @@ public class Client implements KalimaNode {
 		node = new Node(clonePreferences.getLoadConfig());
 		clone = new Clone(clonePreferences, node);
 
-		serverCallBack = new KalimaServerCallBack();
 		clientCallBack = new KalimaClientCallBack(this, gitUser, gitPassword);
 
 		try {
-			node.connect(serverCallBack, clientCallBack);
+			node.connect(null, clientCallBack);
 		} catch (IOException e) {
 			logger.log_srvMsg("ExampleClientNode", "Client", Logger.ERR, "initComponents initNode failed : " + e.getMessage());
 		}

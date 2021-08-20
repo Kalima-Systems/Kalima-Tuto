@@ -34,7 +34,6 @@ F:\Documents\Kalima\gitHub\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\ob
 F:\Documents\Kalima\gitHub\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.csproj.CopyComplete
 F:\Documents\Kalima\gitHub\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.exe
 F:\Documents\Kalima\gitHub\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.pdb
-F:\Documents\Kalima\gitHub\Kalima-Tuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.csprojAssemblyReference.cache
 F:\Documents\Kalima\gitHub\Kalima-Tuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.AssemblyInfoInputs.cache
 F:\Documents\Kalima\gitHub\Kalima-Tuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.AssemblyInfo.cs
 F:\Documents\Kalima\gitHub\Kalima-Tuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.csproj.CoreCompileInputs.cache
@@ -52,3 +51,5 @@ F:\Documents\Kalima\gitHub\Kalima-Tuto\KalimaCSharpExample\KalimaCSharpExample\b
 F:\Documents\Kalima\gitHub\Kalima-Tuto\KalimaCSharpExample\KalimaCSharpExample\bin\Debug\net48\IKVM.OpenJDK.Text.dll
 F:\Documents\Kalima\gitHub\Kalima-Tuto\KalimaCSharpExample\KalimaCSharpExample\bin\Debug\net48\IKVM.OpenJDK.Security.dll
 F:\Documents\Kalima\gitHub\Kalima-Tuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.csproj.CopyComplete
+F:\Documents\Kalima\gitHub\Kalima-Tuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.csproj.AssemblyReference.cache
+F:\Documents\Kalima\gitHub\Kalima-Tuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.GeneratedMSBuildEditorConfig.editorconfig

@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 kalimaServiceAPI = KalimaServiceAPI.Stub.asInterface(service);
-
                 try {
                     kalimaServiceAPI.addKalimaCacheCallback(kalimaCacheCallback);
                 } catch (RemoteException e) {

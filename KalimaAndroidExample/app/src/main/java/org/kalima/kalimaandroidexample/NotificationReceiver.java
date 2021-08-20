@@ -40,7 +40,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.stat_sys_warning)
                 .setContentTitle(cachePath)
-                .setContentText(kMsgParcelable.getKey() + " seq=" + kMsgParcelable.getSequence())
+                .setContentText(kMsgParcelable.getKey() + " value=" + new String(kMsgParcelable.getBody()))
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
