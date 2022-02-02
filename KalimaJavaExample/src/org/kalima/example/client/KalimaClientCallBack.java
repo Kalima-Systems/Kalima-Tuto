@@ -53,6 +53,7 @@ public class KalimaClientCallBack implements ClientCallback {
 	@Override
 	public void onNewVersion(int majver, int minver) {}
 
+	//If we want to use a smart contract, check for any new data on the memcache and execute a smartcontract if there is
 	@Override
 	public void onNewCache(String cachePath) {
 		if(gitUser != null && gitPassword != null) client.getClone().addListnerForUpdate(new SmartContractCallback(cachePath, client, contractManager, gitUser, gitPassword));				
@@ -60,6 +61,11 @@ public class KalimaClientCallBack implements ClientCallback {
 
 	@Override
 	public void onCacheSynchronized(String cachePath) {
+		
+	}
+
+	@Override
+	public void send(KMessage arg0) {
 		
 	}
 }

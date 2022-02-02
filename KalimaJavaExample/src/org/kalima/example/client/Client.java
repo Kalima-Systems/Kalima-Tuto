@@ -1,8 +1,12 @@
 package org.kalima.example.client;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,6 +15,7 @@ import org.kalima.cache.lib.ClonePreferences;
 import org.kalima.cache.lib.KMsg;
 import org.kalima.cache.lib.KProps;
 import org.kalima.cache.lib.KalimaNode;
+import org.kalima.contractManager.ContractManager;
 import org.kalima.dbmodel.Person;
 import org.kalima.dbmodel.Thing;
 import org.kalima.kalimamq.crypto.KKeyStore;
@@ -25,9 +30,11 @@ public class Client implements KalimaNode {
 	private Clone clone;
 	private Logger logger;
 	private KalimaClientCallBack clientCallBack;
+	private SmartContractCallback SCCallback;
 	private ClonePreferences clonePreferences;
 	private String gitUser;
 	private String gitPassword;
+	private String ScriptPath;
 
 	public Client(String[] args) {
 		clonePreferences = new ClonePreferences(args[0]);
@@ -50,20 +57,13 @@ public class Client implements KalimaNode {
 			initComponents();
 			Thread.sleep(2000);
 			System.out.println("GO");
-
-			// Here we make 10 transactions with body "hello x" in cache path "/sensors", with key "keyx"
-			// new KProps("10") set the ttl (time to live) to 10 seconds. So, the record will be automatically deleted in memCaches after 10 second
-			// But of course, all transactions are still present in blockchain
-			for(int i=0 ; i<10 ; i++) {
-				String body = String.valueOf(21 + i);
-				KMsg kMsg = new KMsg(0);				
-				node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, "/sensors", "key" + i, body.getBytes(), new KProps("10")));
-				Thread.sleep(1000);
-			}
-
+			
+			send10msg();
+			
 		} catch (Exception e) {
 			logger.log_srvMsg("ExampleClientNode", "Client", Logger.ERR, e);
 		}
+		System.exit(0);
 	}
 
 	public void rmCache(String cachePath) throws InterruptedException {
@@ -79,11 +79,42 @@ public class Client implements KalimaNode {
 		clone = new Clone(clonePreferences, node);
 
 		clientCallBack = new KalimaClientCallBack(this, gitUser, gitPassword);
-
+		
+		Properties prop = new Properties();
+		String propFileName = "etc/cfg/node.config";
+		InputStream inputStream;
+		try {
+			inputStream = new FileInputStream(propFileName);
+			prop.load(inputStream);
+		} catch (FileNotFoundException e) {
+			
+		} catch (IOException e) {
+			
+		}
+		this.ScriptPath = prop.getProperty("SCRIPT_PATH");
+		
 		try {
 			node.connect(null, clientCallBack);
 		} catch (IOException e) {
 			logger.log_srvMsg("ExampleClientNode", "Client", Logger.ERR, "initComponents initNode failed : " + e.getMessage());
+		}
+	}
+	
+	public void send10msg() {
+		try {
+			// Here we make 10 transactions with body from 95 to 105 in cache path "/sensors", with key "keyx"
+			// new KProps("10") set the ttl (time to live) to 10 seconds. So, the record will be automatically deleted in memCaches after 10 second
+			// This is what you see when "putData cachePath=/sensors key=key0 body= " is printed
+			// But of course, all transactions are still present in blockchain
+			for(int i=0 ; i<10 ; i++) {
+				String body = String.valueOf(95 + i);
+				KMsg kMsg = new KMsg(0);
+				node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, this.ScriptPath, "key" + i, body.getBytes(), new KProps("10")));
+				Thread.sleep(1000);
+			}
+			Thread.sleep(10000);
+		} catch (Exception e) {
+			logger.log_srvMsg("ExampleClientNode", "Client", Logger.ERR, e);
 		}
 	}
 
