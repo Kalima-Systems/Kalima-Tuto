@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.kalima.cache.lib.CacheComparator;
 import org.kalima.cache.lib.KMsg;
+import org.kalima.cache.lib.SendTimeout;
 import org.kalima.contractManager.ContractManager;
 import org.kalima.kalimamq.message.KMessage;
 import org.kalima.kalimamq.netlib.NioClient;
@@ -20,7 +21,7 @@ public class KalimaClientCallBack implements ClientCallback {
 	private ContractManager contractManager;
 	private String gitUser; 
 	private String gitPassword;
-	
+	private SendTimeout sendTimeout;
 		
 	public KalimaClientCallBack(Client client, String gitUser, String gitPassword) {
 		this.client = client;
@@ -29,6 +30,7 @@ public class KalimaClientCallBack implements ClientCallback {
 		contractManager = new ContractManager(logger);
 		this.gitUser = gitUser;
 		this.gitPassword = gitPassword;
+		sendTimeout = new SendTimeout(client.getClone().getClonePreferences().getLoadConfig().getSendTimeout(), logger, node);
 	}
 
 	//isServer data received by a nioServer if true
@@ -36,6 +38,7 @@ public class KalimaClientCallBack implements ClientCallback {
 	public void putData(SocketChannel ch, KMessage msg) {
 		KMsg kMsg = KMsg.setMessage(msg);
 		if(kMsg.getType()!=KMsg.ADMIN) {
+			sendTimeout.remove(kMsg);
 			client.getClone().set(kMsg.getCachePath(), kMsg, true, false);
 			System.out.println("putData cachePath=" + kMsg.getCachePath() + " key=" + kMsg.getKey() + " body=" + new String(kMsg.getBody()));
 		}
@@ -66,6 +69,6 @@ public class KalimaClientCallBack implements ClientCallback {
 
 	@Override
 	public void send(KMessage arg0) {
-		
+		sendTimeout.put(KMsg.setMessage(arg0));
 	}
 }

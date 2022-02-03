@@ -41,7 +41,7 @@ public class Client implements KalimaNode {
 		logger = clonePreferences.getLoadConfig().getLogger();
 	}
 
-	public void run() {
+	public void run(String[] args) {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("Do you want use Smart Contracts ? (Y/n)");
@@ -54,7 +54,7 @@ public class Client implements KalimaNode {
 			}
 			scanner.close();
 			
-			initComponents();
+			initComponents(args);
 			Thread.sleep(2000);
 			System.out.println("GO");
 			
@@ -74,14 +74,14 @@ public class Client implements KalimaNode {
 		}
 	}
 
-	public void initComponents(){
+	public void initComponents(String[] args){
 		node = new Node(clonePreferences.getLoadConfig());
 		clone = new Clone(clonePreferences, node);
 
 		clientCallBack = new KalimaClientCallBack(this, gitUser, gitPassword);
 		
 		Properties prop = new Properties();
-		String propFileName = "etc/cfg/node.config";
+		String propFileName = args[0];
 		InputStream inputStream;
 		try {
 			inputStream = new FileInputStream(propFileName);
@@ -119,7 +119,7 @@ public class Client implements KalimaNode {
 	}
 
 	public static void main(String[] args) {
-		new Client(args).run();
+		new Client(args).run(args);
 	}
 
 	public Node getNode() {
