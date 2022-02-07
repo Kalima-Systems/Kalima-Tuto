@@ -42,6 +42,9 @@ namespace KalimaCSharpExample
 
         public void onCacheSynchronized(string str)
         {}
+
+        public void send(KMessage km)
+        {}
     }
 }
 
