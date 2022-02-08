@@ -15,16 +15,19 @@ namespace KalimaCSharpExample
 		private Client client;
 		private Logger logger;
 		private Node node;
+		private SendTimeout sendTimeout;
 
 		public KalimaClientCallBack (Client client)
 		{
 			this.client = client;
 			this.node = client.getNode ();
 			this.logger = node.getLogger ();
+			sendTimeout = new SendTimeout(client.getClone().getClonePreferences().getLoadConfig().getSendTimeout(), logger, node);
 		}
 
 		public void putData(SocketChannel ch, KMessage msg) {
 			KMsg kMsg = KMsg.setMessage (msg);
+			sendTimeout.remove(kMsg);
 			client.getClone ().set (kMsg.getCachePath(), kMsg, true, false);
 			Console.WriteLine("putData cachePath=" + kMsg.getCachePath() + " key=" + kMsg.getKey() + " body=" + System.Text.Encoding.Default.GetString(kMsg.getBody()));
 		}
@@ -33,6 +36,11 @@ namespace KalimaCSharpExample
 			logger.log_srvMsg ("ExampleClientNode", "KalimaClientCallBack", Logger.DEBUG, "onConnectionChanged status=" + status);
 			client.getClone().onConnectedChange( (status==Node.CLIENT_STATUS_CONNECTED) ? new AtomicBoolean(true) : new AtomicBoolean(false), nioClient, false);
 		}
+
+		public void OnCacheDeleted(string cachesubPath)
+        {
+			logger.log_srvMsg("ExampleClientNode", "KalimaClientCallBack", Logger.DEBUG, "onCachDeleted cacheSubPath=" + cachesubPath);
+        }
 
 		public void putRequestData(SocketChannel ch, KMessage msg) {}
 
@@ -44,7 +52,9 @@ namespace KalimaCSharpExample
         {}
 
         public void send(KMessage km)
-        {}
+        {
+			sendTimeout.put(KMsg.setMessage(km));
+		}
     }
 }
 
