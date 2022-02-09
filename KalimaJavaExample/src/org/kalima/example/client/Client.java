@@ -34,32 +34,25 @@ public class Client implements KalimaNode {
 	private ClonePreferences clonePreferences;
 	private String gitUser;
 	private String gitPassword;
-	private String ScriptPath;
 
 	public Client(String[] args) {
 		clonePreferences = new ClonePreferences(args[0]);
 		logger = clonePreferences.getLoadConfig().getLogger();
 	}
 
-	public void run(String[] args) {
+	public void run() {
 		try {
 			Scanner scanner = new Scanner(System.in);
-			System.out.println("Do you want use Smart Contracts ? (Y/n)");
-			String resp = scanner.nextLine();
-			if(resp.equalsIgnoreCase("Y")) {
-				System.out.println("Enter git username: ");
-				gitUser = scanner.nextLine();
-				System.out.println("Enter git password: ");
-				gitPassword = scanner.nextLine();
-			}
-			scanner.close();
+			int choice = Menu(scanner);
+			initComponents();
 			
-			initComponents(args);
 			Thread.sleep(2000);
 			System.out.println("GO");
-			
-			send10msg();
-			
+			if(choice == 1)
+				send10msg();
+			else if (choice == 2)
+				sendModulableMessage(scanner);
+			scanner.close();
 		} catch (Exception e) {
 			logger.log_srvMsg("ExampleClientNode", "Client", Logger.ERR, e);
 		}
@@ -73,25 +66,38 @@ public class Client implements KalimaNode {
 			node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMsg.PUB, cachePath, msg.getKey(), "".getBytes(), new KProps("-1")));
 		}
 	}
+	
+	public int Menu(Scanner scanner){
+		System.out.println("Do you want use Smart Contracts ? (Y/n)");
+		String resp = scanner.nextLine();
+		if(resp.equalsIgnoreCase("Y")) {
+			System.out.println("Enter git username: ");
+			gitUser = scanner.nextLine();
+			System.out.println("Enter git password: ");
+			gitPassword = scanner.nextLine();
+		}
+		System.out.println("What example do you want to use ?");
+		System.out.println(" - Send 10 messages to /sensors (with ttl 10) : 1");
+		System.out.println(" - Send/Delete 1 message of your choice : 2");
+		int output = 0;
+		while(output == 0) {
+			String choice = scanner.nextLine();
+			if(choice.equalsIgnoreCase("1"))
+					output = 1;
+			if(choice.equalsIgnoreCase("2"))
+				output = 2;
+			if(output == 0) {
+				System.out.println("Invalid choice. Try Again");
+			}
+		}
+		return output;
+	}
 
-	public void initComponents(String[] args){
+	public void initComponents(){
 		node = new Node(clonePreferences.getLoadConfig());
 		clone = new Clone(clonePreferences, node);
 
 		clientCallBack = new KalimaClientCallBack(this, gitUser, gitPassword);
-		
-		Properties prop = new Properties();
-		String propFileName = args[0];
-		InputStream inputStream;
-		try {
-			inputStream = new FileInputStream(propFileName);
-			prop.load(inputStream);
-		} catch (FileNotFoundException e) {
-			
-		} catch (IOException e) {
-			
-		}
-		this.ScriptPath = prop.getProperty("SCRIPT_PATH");
 		
 		try {
 			node.connect(null, clientCallBack);
@@ -109,7 +115,7 @@ public class Client implements KalimaNode {
 			for(int i=0 ; i<10 ; i++) {
 				String body = String.valueOf(95 + i);
 				KMsg kMsg = new KMsg(0);
-				node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, this.ScriptPath, "key" + i, body.getBytes(), new KProps("10")));
+				node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, "/sensors", "key" + i, body.getBytes(), new KProps("10")));
 				Thread.sleep(1000);
 			}
 			Thread.sleep(10000);
@@ -117,9 +123,36 @@ public class Client implements KalimaNode {
 			logger.log_srvMsg("ExampleClientNode", "Client", Logger.ERR, e);
 		}
 	}
+	
+	public void sendModulableMessage(Scanner scanner) {
+		String choice = "";
+		while(!choice.equalsIgnoreCase("a") && !choice.equalsIgnoreCase("d")) {
+			System.out.println("Do you want to add (a) or delete (d) ?");
+			choice = scanner.nextLine();
+		}
+		System.out.println("Type the cachePath you want to interact with :");
+		String cachePath = scanner.nextLine();
+		System.out.println("Type the key of your choice :");
+		String key = scanner.nextLine();
+		String value = "";
+		if(choice.equalsIgnoreCase("a")) {
+			System.out.println("Type the value of your choice :");
+			value = scanner.nextLine();
+			System.out.println("[key : " + key + " / value : " + value + "] added to cachePath : " + cachePath);
+		}
+		if(choice.equalsIgnoreCase("d")) {
+			System.out.println("[key : " + key + "] deleted from cachePath : " + cachePath);
+		}
+		try {
+			KMsg kMsg = new KMsg(0);
+			node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, cachePath, key, value.getBytes(), new KProps("")));
+		} catch (Exception e) {
+			logger.log_srvMsg("ExampleClientNode", "Client", Logger.ERR, e);
+		}
+	}
 
 	public static void main(String[] args) {
-		new Client(args).run(args);
+		new Client(args).run();
 	}
 
 	public Node getNode() {
