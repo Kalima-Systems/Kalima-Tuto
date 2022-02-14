@@ -1,5 +1,7 @@
 package org.kalima.kalimaandroidexample;
 
+import static android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION;
+
 import android.Manifest;
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -7,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +25,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -156,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkPermissions();
         if(permissionStorage) {
             Intent intent = new Intent(this, KalimaService.class);
             bindService(intent, serviceConnection, BIND_AUTO_CREATE);
@@ -177,12 +181,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPermissions(){
-        if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if(!Environment.isExternalStorageManager()) {
+                Intent intent = new Intent(ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, Uri.parse("package:" + BuildConfig.APPLICATION_ID));
+                ActivityResultLauncher<Intent> activityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                        result -> {
+                            if (Environment.isExternalStorageManager()) {
+                                permissionStorage = true;
+                                startService();
+                            }
+                        });
+                activityResult.launch(intent);
+            } else {
+                permissionStorage = true;
+                startService();
+            }
+        } else {
+            if( ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            }
 
-        else{
-            permissionStorage = true ;
+            else{
+                permissionStorage = true ;
+                startService();
+            }
         }
     }
 
