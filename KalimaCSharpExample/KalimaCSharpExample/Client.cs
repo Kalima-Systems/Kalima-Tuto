@@ -56,8 +56,21 @@ namespace KalimaCSharpExample
                 }
                 if (pressedKeyStayInCachePathChoice.KeyChar != 'Y' && pressedKeyStayInCachePathChoice.KeyChar != 'y')
                 {
-                    Console.WriteLine("\nChoose a cache path");
-                    cachepath = Console.ReadLine();
+                    string[] listCachePathExplorer = clone.getCacheList();
+                    string[] listCachePath = new string[listCachePathExplorer.Length];
+                    int i = 1;
+                    foreach (string cache in listCachePathExplorer)
+                    {
+                        if(!cache.Contains("hdr") && !cache.Contains("fmt") && !cache.Contains("json") && !cache.Contains("val") && !cache.Contains("Kalima"))
+                        {
+                            Console.WriteLine("\n" + i + "." + cache);
+                            i++;
+                            listCachePath.SetValue(cache, i - 1);
+                        }
+                    }
+                    cachepath = askForCachePath(listCachePath, i - 1);
+
+
                 }
                 //Now the user will say if he wants to add or delete a data
                 do
@@ -132,5 +145,22 @@ namespace KalimaCSharpExample
             return clone;
         }
 
+        //Function to ask in what cache path the user want to work in.
+
+        public string askForCachePath(string[] listCachePath,int lengthList)
+        {
+            ConsoleKeyInfo pressedKeyChoiceCachePath = new ConsoleKeyInfo();
+            Console.WriteLine("\nChoose a cache path");
+            pressedKeyChoiceCachePath = Console.ReadKey();
+            for(int i = 0; i < lengthList; i++)
+            {
+                if (pressedKeyChoiceCachePath.KeyChar.ToString().Equals(i.ToString()))
+                {
+                    return listCachePath[i];
+                }
+            }
+            askForCachePath(listCachePath, lengthList);
+            return "";
+        }
     }
 }
