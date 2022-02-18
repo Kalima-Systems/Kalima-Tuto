@@ -5,6 +5,7 @@ using org.kalima.kalimamq.crypto;
 using org.kalima.util;
 using org.kalima.cache.lib;
 using ikvm.extensions;
+using System.Text;
 
 namespace KalimaCSharpExample
 {
@@ -64,11 +65,11 @@ namespace KalimaCSharpExample
                         if(!cache.Contains("hdr") && !cache.Contains("fmt") && !cache.Contains("json") && !cache.Contains("val") && !cache.Contains("Kalima"))
                         {
                             Console.WriteLine("\n" + i + "." + cache);
-                            i++;
                             listCachePath.SetValue(cache, i - 1);
+                            i++;
                         }
                     }
-                    cachepath = askForCachePath(listCachePath, i - 1);
+                    cachepath = askForCachePath(listCachePath, i);
 
 
                 }
@@ -99,8 +100,8 @@ namespace KalimaCSharpExample
 
                 //Send message to the blockchain with the cache path 
                 KMsg kMsg = new KMsg(0);
-                node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, cachepath, key, body.getBytes(), new KProps("")));
-                System.Threading.Thread.Sleep(1000);
+                node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, cachepath, key, Encoding.ASCII.GetBytes(body), new KProps(""))); ;
+                 System.Threading.Thread.Sleep(1000);
 
                 Console.WriteLine("\nPress ENTER to continue or 'E' to exit");
                 pressedKeyLeftExample = Console.ReadKey();
@@ -152,11 +153,14 @@ namespace KalimaCSharpExample
             ConsoleKeyInfo pressedKeyChoiceCachePath = new ConsoleKeyInfo();
             Console.WriteLine("\nChoose a cache path");
             pressedKeyChoiceCachePath = Console.ReadKey();
-            for(int i = 0; i < lengthList; i++)
+            for(int i = 1; i < lengthList + 1 ; i++)
             {
                 if (pressedKeyChoiceCachePath.KeyChar.ToString().Equals(i.ToString()))
                 {
-                    return listCachePath[i];
+                    if(i - 1 >= 0)
+                    {
+                        return listCachePath[i - 1];
+                    }
                 }
             }
             askForCachePath(listCachePath, lengthList);
