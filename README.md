@@ -20,4 +20,3 @@ Exemple(s) de smart contract(s) : KalimaSmartContracts
 
 - sensors.js : Smart Contract qui déclanche une alarme dans /fire à chaque fois la valeur ajoutée dans /sensors est supérieure à un seuil
 - fire.js : Smart Contract permettant d'inverser le string ajouté dans /fire
-- reverse_string.js : Smart Contract permettant d'inverser un string 
