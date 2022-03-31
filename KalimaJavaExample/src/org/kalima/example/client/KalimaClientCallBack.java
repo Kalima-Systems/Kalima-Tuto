@@ -3,7 +3,6 @@ package org.kalima.example.client;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.kalima.cache.lib.CacheComparator;
 import org.kalima.cache.lib.KMsg;
 import org.kalima.cache.lib.SendTimeout;
 import org.kalima.contractManager.ContractManager;
@@ -37,10 +36,10 @@ public class KalimaClientCallBack implements ClientCallback {
 	@Override
 	public void putData(SocketChannel ch, KMessage msg) {
 		KMsg kMsg = KMsg.setMessage(msg);
-		if(kMsg.getType()!=KMsg.ADMIN) {
-			sendTimeout.remove(kMsg);
-			client.getClone().set(kMsg.getCachePath(), kMsg, true, false);
-			System.out.println("putData cachePath=" + kMsg.getCachePath() + " key=" + kMsg.getKey() + " body=" + new String(kMsg.getBody()));
+		client.getClone().set(kMsg.getCachePath(), kMsg, true, false);
+		sendTimeout.remove(kMsg);
+		if(kMsg.getType()==KMsg.PUB) {
+			System.out.println("putData cachePath=" + kMsg.getCachePath() + " key=" + kMsg.getKey() + " body=" + new String(kMsg.getBody()) + " " + kMsg.getType());
 		}
 	}
 
@@ -70,5 +69,10 @@ public class KalimaClientCallBack implements ClientCallback {
 	@Override
 	public void send(KMessage arg0) {
 		sendTimeout.put(KMsg.setMessage(arg0));
+	}
+
+	@Override
+	public void onJoined(SocketChannel arg0, KMessage arg1) {
+		client.getClone().onJoined(arg0, false);
 	}
 }

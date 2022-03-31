@@ -62,7 +62,7 @@ namespace KalimaCSharpExample
                     int i = 1;
                     foreach (string cache in listCachePathExplorer)
                     {
-                        if(!cache.Contains("hdr") && !cache.Contains("fmt") && !cache.Contains("json") && !cache.Contains("val") && !cache.Contains("Kalima"))
+                        if (!cache.Contains("hdr") && !cache.Contains("fmt") && !cache.Contains("json") && !cache.Contains("val") && !cache.Contains("Kalima"))
                         {
                             Console.WriteLine("\n" + i + "." + cache);
                             listCachePath.SetValue(cache, i - 1);
@@ -99,26 +99,12 @@ namespace KalimaCSharpExample
                 } while (key == "");
 
                 //Send message to the blockchain with the cache path 
-                KMsg kMsg = new KMsg(0);
-                node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, cachepath, key, Encoding.ASCII.GetBytes(body), new KProps(""))); ;
-                 System.Threading.Thread.Sleep(1000);
+                clone.put(cachepath, key, Encoding.ASCII.GetBytes(body));
+                System.Threading.Thread.Sleep(1000);
 
                 Console.WriteLine("\nPress ENTER to continue or 'E' to exit");
                 pressedKeyLeftExample = Console.ReadKey();
             } while (pressedKeyLeftExample.KeyChar != 'e' && pressedKeyLeftExample.KeyChar != 'E');
-
-            // Here we make 10 transactions with body "hello x" in cache path "/sensors", with key "keyx"
-            // new KProps("10") set the ttl (time to live) to 10 seconds. So, the record will be automatically deleted in memCaches after 10 second
-            // But of course, all transactions are still present in blockchain
-            /*
-                        for (int i = 0; i < 10; i++)
-                        {
-                            String body = "hello" + i;
-                            KMsg kMsg = new KMsg(0);
-                            node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, "/sensors", "key" + i, body.getBytes(), new KProps("10")));
-                            System.Threading.Thread.Sleep(1000);
-                        }
-            */
         }
 
         public void initComponents()

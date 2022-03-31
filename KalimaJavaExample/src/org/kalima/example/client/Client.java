@@ -62,8 +62,7 @@ public class Client implements KalimaNode {
 	public void rmCache(String cachePath) throws InterruptedException {
 		for(Map.Entry<String, KMessage> entry : clone.getMemCache(cachePath).getKvmap().entrySet()) {
 			KMsg msg = KMsg.setMessage(entry.getValue());
-			KMsg kMsg = new KMsg(0);
-			node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMsg.PUB, cachePath, msg.getKey(), "".getBytes(), new KProps("-1")));
+			clone.remove(cachePath, msg.getKey());
 		}
 	}
 	
@@ -114,8 +113,7 @@ public class Client implements KalimaNode {
 			// But of course, all transactions are still present in blockchain
 			for(int i=0 ; i<10 ; i++) {
 				String body = String.valueOf(95 + i);
-				KMsg kMsg = new KMsg(0);
-				node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, "/sensors", "key" + i, body.getBytes(), new KProps("10")));
+				clone.put("/sensors", "key" + i, body.getBytes(), 10);
 				Thread.sleep(1000);
 			}
 			Thread.sleep(10000);
@@ -144,8 +142,7 @@ public class Client implements KalimaNode {
 			System.out.println("[key : " + key + "] deleted from cachePath : " + cachePath);
 		}
 		try {
-			KMsg kMsg = new KMsg(0);
-			node.sendToNotaryNodes(kMsg.getMessage(node.getDevID(), KMessage.PUB, cachePath, key, value.getBytes(), new KProps("")));
+			clone.put(cachePath, key, value.getBytes());
 		} catch (Exception e) {
 			logger.log_srvMsg("ExampleClientNode", "Client", Logger.ERR, e);
 		}
