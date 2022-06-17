@@ -2,21 +2,23 @@
 
 Documentations : etc/doc
 
-- API_Kalima : Presentation rapide de Kalima
-- JavaExample : Tuto pour se connecter et interagir avec la blockchain en Java
-- AndroidExample : Tuto pour se connecter et interagir avec la blockchain via le service Kalima pour Android
-- CSharpExample : Tuto pour se connecter et interagir avec la blockchain en C#
-- nodeJSAPI : Appels REST vers Kalima
-- Smart_Contracts : Création des Smart Contracts
+- API_Kalima : Quick presentation of Kalima
+- API_Java : Java tutorial to communicate with the blockchain
+- AndroidExample : Android tutorial to communicate with the blockchain through a KalimaService
+- CSharpExample : C# tutorial to communicate with the blockchain
+- restAPI : REST Api for Kalima Blockchain
+- JavaScript_Smart_Contracts : How to create JavaScript Smart Contracts
+- CExample : C tutorial to communicate with the blockchain
+- Kalima_Explorer : Kalima Explorer tutorial
 
 Librairies : etc/lib
 
-- Kalima.jar : API Kalima pour Java
-- KalimaSC.jar : API Kalima incluant les éléments nécessaires pour exécuter des smarts contracts, pour Java
-- kalima-android-lib-release.aar : Librairie du service Kalima pour Android
-- dll/* : dll nécessaires pour créer un projet en C#
+- Kalima.jar : JAVA API for Kalima
+- KalimaSC.jar : JAVA API for Kalima to create Smart Contracts Nodes
+- kalima-android-lib-release.aar : Kalima Service for Android API
+- dll/* : All DLL for creation of C# project
 
-Exemple(s) de smart contract(s) : KalimaSmartContracts
+Smart Contracts examples : KalimaSmartContracts
 
-- sensors.js : Smart Contract qui déclanche une alarme dans /fire à chaque fois la valeur ajoutée dans /sensors est supérieure à un seuil
-- fire.js : Smart Contract permettant d'inverser le string ajouté dans /fire
+- sensors.js : This smart contract trigger an alarm on /alarms/fire address if temperature value in /sensors exceeds a certain threshold
+- fire.js : This smart contract just write received alarms in log files

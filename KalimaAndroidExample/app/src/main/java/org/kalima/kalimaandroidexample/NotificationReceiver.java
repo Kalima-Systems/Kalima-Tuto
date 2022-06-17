@@ -34,7 +34,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         // You can choose an activity to start, when user click on notification
         Intent dialogIntent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, dialogIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, dialogIntent, PendingIntent.FLAG_IMMUTABLE);
         createNotificationChannel(context);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)

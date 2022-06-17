@@ -6,7 +6,7 @@
     tools:context=".MainActivity">
 
     <ListView
-        android:id="@+id/cache_paths_list"
+        android:id="@+id/addresses"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/edit_send"
@@ -20,6 +20,7 @@
         android:layout_above="@id/test_send"
         android:layout_centerHorizontal="true"
         android:hint="Enter text to send"
+        android:inputType="numberDecimal"
         />
 
     <Button

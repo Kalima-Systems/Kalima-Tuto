@@ -29,9 +29,9 @@ public class CacheOverview extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cache_overview);
-        final String cachePathName = getIntent().getStringExtra("cachePath");
+        final String cachePathName = getIntent().getStringExtra("address");
 
-        final TextView cache = findViewById(R.id.tv_cache_path);
+        final TextView cache = findViewById(R.id.tv_address);
         cache.setText(cachePathName);
 
         ListView entriesListView = findViewById(R.id.listview_cache_overview);
