@@ -31,10 +31,10 @@ void bb_print_hex(byte_buffer *bb);
 uint8_t bb_get(byte_buffer *bb);
 void bb_get_bytes_in(byte_buffer *bb, uint8_t *dest, size_t len);
 uint8_t *bb_get_bytes(byte_buffer *bb, size_t len);
-uint64_t bb_get_long(byte_buffer *bb);
-uint64_t bb_get_long_at(byte_buffer *bb, uint32_t index);
+int64_t bb_get_long(byte_buffer *bb);
+int64_t bb_get_long_at(byte_buffer *bb, uint32_t index);
 
 // Put functions (simply drop bytes until there is no more room)
-void bb_put_long(byte_buffer *bb, uint64_t value);
+void bb_put_long(byte_buffer *bb, int64_t value);
 
 #endif

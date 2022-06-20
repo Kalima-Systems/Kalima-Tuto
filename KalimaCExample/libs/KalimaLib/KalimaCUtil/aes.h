@@ -75,9 +75,9 @@ void AES_CTR_xcrypt_buffer(struct AES_ctx* ctx, uint8_t* buf, size_t length);
 
 #endif // #if defined(CTR) && (CTR == 1)
 
-int pkcs7_padding_pad_buffer( uint8_t *buffer,  size_t data_length, size_t buffer_size, uint8_t modulus );
+uint8_t pkcs7_padding_pad_buffer( uint8_t *buffer,  size_t data_length, size_t buffer_size, uint8_t modulus );
 
-int pkcs7_padding_valid( uint8_t *buffer, size_t data_length, size_t buffer_size, uint8_t modulus );
+uint8_t pkcs7_padding_valid( uint8_t *buffer, size_t data_length, size_t buffer_size, uint8_t modulus );
 
 /* Given a block of pkcs7 padded data, return the actual data length in the block based on the padding applied.
  * buffer_size must be a multiple of modulus
@@ -88,7 +88,7 @@ int pkcs7_padding_valid( uint8_t *buffer, size_t data_length, size_t buffer_size
  */
 size_t pkcs7_padding_data_length( uint8_t * buffer, size_t buffer_size, uint8_t modulus );
 
-uint16_t encrypt_msg(uint8_t* msg, uint16_t size);
-uint16_t decrypt_msg(uint8_t* msg, uint16_t size);
+uint16_t encrypt_msg(uint8_t* msg, uint16_t size, uint8_t* key, uint8_t* iv);
+uint16_t decrypt_msg(uint8_t* msg, uint16_t size, uint8_t* key, uint8_t* iv);
 
 #endif // _AES_H_

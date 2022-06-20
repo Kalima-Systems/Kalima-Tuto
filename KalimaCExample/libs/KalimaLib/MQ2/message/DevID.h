@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include <time.h>
 #include <ifaddrs.h>
-#include <netpacket/packet.h>
 
 #define MACAddr_size 6
 

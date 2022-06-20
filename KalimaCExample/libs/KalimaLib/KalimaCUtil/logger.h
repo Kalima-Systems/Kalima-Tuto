@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 
 #define EMERGE 0
@@ -15,6 +16,6 @@
 #define DEBUG 70
 #define VERB 80
 
-void log_srvMsg(char* path, char* service_Name, char* log_Name, int log_lvl, char* message);
+void log_srvMsg(char* path, char* service_Name, char* log_Name, uint8_t log_lvl, char* message);
 
 #endif

@@ -1,5 +1,0 @@
-LedgerName=KalimaLedger
-NODE_NAME=Node Example
-NotariesList=167.86.124.188:9090 62.171.130.233:9090 62.171.131.157:9090 144.91.108.243:9090
-FILES_PATH=log/
-SerialID=LouisVM

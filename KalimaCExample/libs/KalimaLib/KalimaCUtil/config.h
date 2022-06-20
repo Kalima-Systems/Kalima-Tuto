@@ -2,9 +2,9 @@
 #define CONFIG_h
 
 #include <stdint.h>
+#include "LinkedList.h"
 
-#define MAXLINE 100
-#define MAX_NOTARIES 10
+#define MAXLINE 200
 
 typedef struct Notary Notary;
 struct Notary
@@ -22,15 +22,23 @@ struct Config
     char *Node_Name;
     uint8_t Node_size;
     uint16_t Port;
-    Notary Notaries[MAX_NOTARIES];
-    uint8_t Nb_Notaries;
+    List *Notaries;
+    int32_t watchdog;
     char *Files_Path;
     uint8_t FilesPath_size;
     char *Serial_ID;
     uint8_t SerialId_size;
+    char *private_key;
+    uint8_t private_key_size;
+    char *public_key;
+    uint8_t public_key_size;
+    char *blockchain_public_key;
+    uint8_t blockchain_public_key_size;
 };
 
-Config load_config(Config config, char* file);
-Config check_line(Config config, char* str);
+Config *load_config(char* file);
+void config_init(Config *config);
+void check_line(Config* config, char* str);
+void print_notary(void* v);
 
 #endif
