@@ -3,7 +3,7 @@ CFLAGS=
 LDFLAGS=-lcrypto -lm
 EXEC= Exec
 
-LIBRARY=lib_KalimaNodeLib.a
+LIBRARY=lib_KalimaNodeLib32.a
 
 all: $(EXEC)
 
