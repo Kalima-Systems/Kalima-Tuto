@@ -27,10 +27,4 @@ public class AlarmsCallback implements MemCacheCallback {
 	public void removeData(String key) {
 
 	}
-
-	@Override
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 }
