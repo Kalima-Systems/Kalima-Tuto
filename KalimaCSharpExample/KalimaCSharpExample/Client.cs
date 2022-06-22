@@ -1,7 +1,6 @@
 ﻿using System;
 using org.kalima.kalimamq.nodelib;
 using org.kalima.kalimamq.message;
-using org.kalima.kalimamq.crypto;
 using org.kalima.util;
 using org.kalima.cache.lib;
 using ikvm.extensions;
@@ -9,21 +8,16 @@ using System.Text;
 
 namespace KalimaCSharpExample
 {
-    public class Client : KalimaNode
+    public class Client
     {
-
-        private Node node;
         private Clone clone;
         private Logger logger;
-        private KalimaClientCallBack kalimaClientCallback;
-        private ClonePreferences clonePreferences;
 
         public static void Main(string[] args)
         {
             try
             {
                 Client client = new Client(args);
-                Console.Write("\nEnd of the console program...");
             }
             catch (Exception e)
             {
@@ -33,93 +27,57 @@ namespace KalimaCSharpExample
 
         public Client(string[] args)
         {
-            clonePreferences = new ClonePreferences(args[0]);
+            ClonePreferences clonePreferences = new ClonePreferences(args[0]);
             logger = clonePreferences.getLoadConfig().getLogger();
-            initComponents();
-            System.Threading.Thread.Sleep(2000);
-            ConsoleKeyInfo pressedKeyLeftExample = new ConsoleKeyInfo();
-            string cachepath = "";
-            // Global loop for the example
-            do
+            clone = new Clone(clonePreferences);
+            KalimaClientCallBack kalimaClientCallback = new KalimaClientCallBack(this);
+            clone.connect(kalimaClientCallback);
+
+            Boolean stop = false;
+            while (!stop)
             {
-                ConsoleKeyInfo pressedKeyAskCachePathChoice = new ConsoleKeyInfo();
-                ConsoleKeyInfo pressedKeyStayInCachePathChoice = new ConsoleKeyInfo();
+                menu();
+                ConsoleKey choice = Console.ReadKey().Key;
+                Console.WriteLine();
+                switch (choice)
+                {
+                    case ConsoleKey.NumPad1:
+                    case ConsoleKey.D1:
+                        printAddresses();
+                        break;
 
-                // Verify if this is the first loop in the example
-                //Then if this is not the first ask if the user want to stay in the same cache path
-                if (pressedKeyLeftExample.KeyChar == '\r')
-                {
-                    do
-                    {
-                        Console.WriteLine("\nDo you want to stay in the same cache path? y/n");
-                        pressedKeyStayInCachePathChoice = Console.ReadKey();
-                    } while (pressedKeyStayInCachePathChoice.KeyChar != 'Y' && pressedKeyStayInCachePathChoice.KeyChar != 'y' && pressedKeyStayInCachePathChoice.KeyChar != 'N' && pressedKeyStayInCachePathChoice.KeyChar != 'n');
-                }
-                if (pressedKeyStayInCachePathChoice.KeyChar != 'Y' && pressedKeyStayInCachePathChoice.KeyChar != 'y')
-                {
-                    string[] listCachePathExplorer = clone.getCacheList();
-                    string[] listCachePath = new string[listCachePathExplorer.Length];
-                    int i = 1;
-                    foreach (string cache in listCachePathExplorer)
-                    {
-                        if (!cache.Contains("hdr") && !cache.Contains("fmt") && !cache.Contains("json") && !cache.Contains("val") && !cache.Contains("Kalima"))
+                    case ConsoleKey.NumPad2:
+                    case ConsoleKey.D2:
+                        Console.WriteLine("Enter address:");
+                        printContentOfAddress(Console.ReadLine());
+                        break;
+
+                    case ConsoleKey.NumPad3:
+                    case ConsoleKey.D3:
+                        printContentOfAllAddresses();
+                        break;
+
+                    case ConsoleKey.NumPad4:
+                    case ConsoleKey.D4:
+                        Console.WriteLine("Enter tempareture (int):");
+                        String temperatureStr = Console.ReadLine();
+                        try
                         {
-                            Console.WriteLine("\n" + i + "." + cache);
-                            listCachePath.SetValue(cache, i - 1);
-                            i++;
+                            putTemperature((int)Int64.Parse(temperatureStr));
                         }
-                    }
-                    cachepath = askForCachePath(listCachePath, i);
+                        catch (Exception)
+                        {
+                            Console.WriteLine("You must enter an integer");
+                        }
+                        break;
 
-
+                    case ConsoleKey.NumPad5:
+                    case ConsoleKey.D5:
+                        stop = true;
+                        break;
                 }
-                //Now the user will say if he wants to add or delete a data
-                do
-                {
-                    Console.WriteLine("\nPress 'A' to add something to the cache path and 'D' to delete");
-                    pressedKeyAskCachePathChoice = Console.ReadKey();
-                } while (pressedKeyAskCachePathChoice.KeyChar != 'A' && pressedKeyAskCachePathChoice.KeyChar != 'a' && pressedKeyAskCachePathChoice.KeyChar != 'D' && pressedKeyAskCachePathChoice.KeyChar != 'd');
-
-                string key = "";
-                string body = "";
-                do
-                {
-                    if (pressedKeyAskCachePathChoice.KeyChar == 'A' || pressedKeyAskCachePathChoice.KeyChar == 'a')
-                    {
-                        Console.WriteLine("\nEnter the key of the data you want to add");
-                        key = Console.ReadLine();
-                        Console.WriteLine("\nEnter the value of your data");
-                        body = Console.ReadLine();
-                    }
-                    else if (pressedKeyAskCachePathChoice.KeyChar == 'D' || pressedKeyAskCachePathChoice.KeyChar == 'd')
-                    {
-                        Console.WriteLine("\nEnter the key of the data you want to delete");
-                        key = Console.ReadLine();
-                    }
-                } while (key == "");
-
-                //Send message to the blockchain with the cache path 
-                clone.put(cachepath, key, Encoding.ASCII.GetBytes(body));
-                System.Threading.Thread.Sleep(1000);
-
-                Console.WriteLine("\nPress ENTER to continue or 'E' to exit");
-                pressedKeyLeftExample = Console.ReadKey();
-            } while (pressedKeyLeftExample.KeyChar != 'e' && pressedKeyLeftExample.KeyChar != 'E');
-        }
-
-        public void initComponents()
-        {
-            node = new Node(clonePreferences.getLoadConfig());
-            clone = new Clone(clonePreferences, node);
-
-            kalimaClientCallback = new KalimaClientCallBack(this);
-
-            node.connect(null, kalimaClientCallback);
-        }
-
-        public Node getNode()
-        {
-            return node;
+            }
+            Environment.Exit(0);
         }
 
         public Logger getLogger()
@@ -132,25 +90,57 @@ namespace KalimaCSharpExample
             return clone;
         }
 
-        //Function to ask in what cache path the user want to work in.
-
-        public string askForCachePath(string[] listCachePath,int lengthList)
+        private void menu()
         {
-            ConsoleKeyInfo pressedKeyChoiceCachePath = new ConsoleKeyInfo();
-            Console.WriteLine("\nChoose a cache path");
-            pressedKeyChoiceCachePath = Console.ReadKey();
-            for(int i = 1; i < lengthList + 1 ; i++)
+            Console.WriteLine("1- print all addresses");
+            Console.WriteLine("2- print content of address");
+            Console.WriteLine("3- print content of all addresses");
+            Console.WriteLine("4- put a temperature");
+            Console.WriteLine("5- close");
+        }
+
+        private void printAddresses()
+        {
+            foreach (String addr in clone.getAddresses())
             {
-                if (pressedKeyChoiceCachePath.KeyChar.ToString().Equals(i.ToString()))
-                {
-                    if(i - 1 >= 0)
-                    {
-                        return listCachePath[i - 1];
-                    }
-                }
+                Console.WriteLine(addr);
             }
-            askForCachePath(listCachePath, lengthList);
-            return "";
+        }
+
+        private void printContentOfAddress(String address)
+        {
+            MemCache memCache = (MemCache)clone.getMemCache(address);
+            if(memCache == null)
+            {
+                Console.WriteLine("Address " + address + " not found");
+                return;
+            }
+
+            memCache.navigate(new PrintKmsg());
+
+        }
+
+        private void printContentOfAllAddresses()
+        {
+            foreach(String addr in clone.getAddresses())
+            {
+                Console.WriteLine("*** " + addr + " ***");
+                printContentOfAddress(addr);
+                Console.WriteLine(addr);
+            }
+        }
+
+        private void putTemperature(int temperature)
+        { 
+            clone.put("/sensors", "temperature", Encoding.ASCII.GetBytes(temperature.toString()));
+        }
+
+        public class PrintKmsg : MemCache.NextKMsg
+        {
+            public void invoke(KMsg kmsg)
+            {
+                Console.WriteLine("KEY=" + kmsg.getKey() + " BODY=" + System.Text.Encoding.Default.GetString(kmsg.getBody()));
+            }
         }
     }
 }

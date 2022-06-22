@@ -72,7 +72,7 @@ public class Client {
 		System.out.println("1- print all addresses");
 		System.out.println("2- print content of address");
 		System.out.println("3- print content of all addresses");
-		System.out.println("3- print content of all addresses");
+		System.out.println("4- put a temperature");
 		System.out.println("5- close");
 	}
 

@@ -6,7 +6,7 @@ Documentations : etc/doc
 - API_Java : Java tutorial to communicate with the blockchain
 - AndroidExample : Android tutorial to communicate with the blockchain through a KalimaService
 - CSharpExample : C# tutorial to communicate with the blockchain
-- restAPI : REST Api for Kalima Blockchain
+- restAPI : REST API for Kalima Blockchain
 - JavaScript_Smart_Contracts : How to create JavaScript Smart Contracts
 - CExample : C tutorial to communicate with the blockchain
 - Kalima_Explorer : Kalima Explorer tutorial
@@ -20,5 +20,5 @@ Librairies : etc/lib
 
 Smart Contracts examples : KalimaSmartContracts
 
-- sensors.js : This smart contract trigger an alarm on /alarms/fire address if temperature value in /sensors exceeds a certain threshold
-- fire.js : This smart contract just write received alarms in log files
+- sensors.js : This smart contract triggers an alarm at the /alarms/fire address if the temperature value in /sensors exceeds a certain threshold
+- fire.js : This smart contract writes received alarms in log files
