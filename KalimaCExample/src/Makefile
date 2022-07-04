@@ -1,6 +1,6 @@
 CC=gcc -pthread
 CFLAGS=
-LDFLAGS=-lcrypto -lm
+LDFLAGS=
 EXEC= Exec
 
 LIBRARY=lib_KalimaNodeLib.a
@@ -11,15 +11,12 @@ main.o: main.c
 	$(CC) -o main.o -c main.c $(CFLAGS)
 
 Exec: main.o
-	cd ../libs/KalimaLib; if [ -d objects ]; then rm -rf objects; fi; mkdir objects; cd objects; ar -x ../$(LIBRARY)
-	$(CC) -o main.run main.o ../libs/KalimaLib/objects/*.o $(LDFLAGS)
-	cd ../libs/KalimaLib; if [ -d objects ]; then rm -rf objects; fi
+	$(CC) -o main.run main.o -L. ../libs/KalimaLib/$(LIBRARY) $(LDFLAGS)
 
 clean:
 	rm -rf *.o
 	rm -rf main.run
 	if [ -d log ]; then rm -rf log; fi
-	cd ../libs/KalimaLib; if [ -d objects ]; then rm -rf objects; fi
 
 mrproper: clean
 	rm -rf $(EXEC)

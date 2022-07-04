@@ -27,35 +27,37 @@ struct Client{
     uint8_t ip_size;
     uint16_t port;
     uint8_t awaitingIHY;
-    SkipList_t *data_recv;
+    SkipList_t *data_recv, *pending_data;
     Buffer buffer;
-    pthread_mutex_t bufferLock;
+    pthread_mutex_t bufferLock, sendLock, aesLock, connectLock;
     pthread_t threadClient;
     unsigned char *aes_key;
     uint8_t aes_key_size;
     unsigned char *aes_iv;
     uint8_t aes_iv_size;
     uint8_t send_join_req;
+    uint8_t aes_received;
+    uint8_t reconnecting;
 };
 typedef struct Client Client;
 
 Client* Client_init(struct Node *node, uint8_t notary_index);
 void *Client_handler(void* cli);
-void *Handle_Reconnect(void* cli);
+void *send_Pending(void* cli);
 void *send_Client_HB(Client*);
 void send_Client_IHY(Client*);
 uint8_t connect_Client(Client*);
-uint8_t write_Client(Client*, unsigned char *message, uint16_t size);
+void write_Client(Client*, unsigned char *message, uint16_t size);
 void send_to_Notary(Client* client, KMessage *Kmessage);
 void *read_Client(void*);
 void *Client_treat_Read(Client*);
-void stop_Client(Client*, uint8_t close);
+void stop_Client(Client*);
 uint8_t is_connected(Client*);
 
 uint8_t get_awaitingIHY(Client*);
 void set_awaitingIHY(Client*, uint8_t value);
 
-int64_t get_Client_Highest_Remaining_Message(Client* client);
-int64_t get_Client_Lowest_Remaining_Message(Client* client);
+int64_t get_Client_Highest_Remaining_Message(SkipList_t* skiplist);
+int64_t get_Client_Lowest_Remaining_Message(SkipList_t* skiplist);
 
 #endif

@@ -15,5 +15,6 @@ int32_t calcDecodeLength(const unsigned char* b64input, int32_t len);
 int32_t Base64Decode(unsigned char* b64message, int32_t b64message_size, unsigned char** buffer);
 int32_t Base64Encode(const unsigned char* message, int32_t message_size, unsigned char** buffer);
 uint8_t get_int_len (int64_t value);
+int32_t calculate_ceil(int a, int b);
 
 #endif
