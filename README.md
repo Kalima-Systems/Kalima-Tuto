@@ -10,6 +10,8 @@ Documentations : etc/doc
 - JavaScript_Smart_Contracts : How to create JavaScript Smart Contracts
 - CExample : C tutorial to communicate with the blockchain
 - Kalima_Explorer : Kalima Explorer tutorial
+- Develop_Smart_Contract_Node : Java tutorial to make a KalimaNode able to run Javascript smart contracts 
+- Deploy_Smart_Contract_Node : How to deploy a smart contract node on a Kalima Blockchain
 
 Librairies : etc/lib
 
