@@ -1,0 +1,37 @@
+<project name="SmartContractNode" default="jar" basedir=".">
+
+	<property name="SmartContractNode.src.dir" value="../SmartContractNode/src" />
+	<property name="SmartContractNode.bin.dir" value="../SmartContractNode/bin" />
+	<property name="SmartContractNode.jar.dir" value="../SmartContractNode/etc/jar" />
+	<property name="Kalima.jar.dir" value="../KalimaNodeLib/etc/jar" />
+	<property name="Kalima.jar" value="KalimaSC.jar" />
+
+	<target name="clean">
+		<delete dir="${SmartContractNode.bin.dir}" />
+		<echo message="clean ${SmartContractNode.bin.dir} done." />
+		<delete dir="${SmartContractNode.jar.dir}" />
+		<echo message="clean ${SmartContractNode.jar.dir} done." />
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="${SmartContractNode.bin.dir}" />
+		<javac srcdir="${SmartContractNode.src.dir}" destdir="${SmartContractNode.bin.dir}" debug="true">
+			<classpath>
+				<pathelement path="${Kalima.jar.dir}/${Kalima.jar}"/>
+			</classpath>
+		</javac>
+		<echo message="compile ${ant.project.name} done." />
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${SmartContractNode.jar.dir}" />
+		<jar destfile="${SmartContractNode.jar.dir}/SmartContractNode.jar" basedir="${SmartContractNode.bin.dir}">
+			<zipgroupfileset dir="${Kalima.jar.dir}" includes="${Kalima.jar}"/>
+			<manifest>
+				<attribute name="Main-Class" value="org.kalima.smartcontractnode.Client"/>
+			</manifest>
+		</jar>
+		<echo message="${SmartContractNode.jar.dir}/SmartContractNode.jar created." />
+	</target>
+
+</project>
