@@ -25,9 +25,10 @@ namespace KalimaCSharpExample
             return address;
         }
 
-        public void putData(string key, KMessage kMessage)
+        public void putData(KMessage kMessage)
         {
             KMsg msg = KMsg.setMessage(kMessage);
+            String key = msg.getKey();
             String body = System.Text.Encoding.Default.GetString(msg.getBody());
             Console.WriteLine("new sensor value key=" + key + " body=" + body);
             if(key.Equals("temperature"))
@@ -40,7 +41,7 @@ namespace KalimaCSharpExample
             }
         }
 
-        public void removeData(string str)
+        public void removeData(KMessage kMessage)
         {
             
         }

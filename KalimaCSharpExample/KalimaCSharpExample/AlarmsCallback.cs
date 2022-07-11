@@ -24,13 +24,13 @@ namespace KalimaCSharpExample
             return address;
         }
 
-        public void putData(string key, KMessage kMessage)
+        public void putData(KMessage kMessage)
         {
             KMsg kMsg = KMsg.setMessage(kMessage);
-            Console.WriteLine("new alarm key=" + key + " body=" + System.Text.Encoding.Default.GetString(kMsg.getBody()));
+            Console.WriteLine("new alarm key=" + kMsg.getKey() + " body=" + System.Text.Encoding.Default.GetString(kMsg.getBody()));
         }
 
-        public void removeData(string str)
+        public void removeData(KMessage kMessage)
         {
            
         }

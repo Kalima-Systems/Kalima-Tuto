@@ -16,8 +16,9 @@ public class SensorsCallBack implements MemCacheCallback{
 	}
 	
 	@Override
-	public void putData(String key, KMessage kMessage) {
+	public void putData(KMessage kMessage) {
 		KMsg msg = KMsg.setMessage(kMessage);
+		String key = msg.getKey();
 		System.out.println("new sensor value key=" + key + " body=" + new String(msg.getBody()));
 		if(key.equals("temperature")) {
 			int temperature = Integer.parseInt(new String(msg.getBody()));
@@ -28,7 +29,7 @@ public class SensorsCallBack implements MemCacheCallback{
 	}
 
 	@Override
-	public void removeData(String key) {
+	public void removeData(KMessage kMessage) {
 		
 	}
 	

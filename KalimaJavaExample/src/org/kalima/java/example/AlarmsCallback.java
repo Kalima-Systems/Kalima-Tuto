@@ -18,13 +18,13 @@ public class AlarmsCallback implements MemCacheCallback {
 	}
 
 	@Override
-	public void putData(String key, KMessage kMessage) {
+	public void putData(KMessage kMessage) {
 		KMsg kMsg = KMsg.setMessage(kMessage);
-		System.out.println("new alarm key=" + key + " body=" + new String(kMsg.getBody()));
+		System.out.println("new alarm key=" + kMsg.getKey() + " body=" + new String(kMsg.getBody()));
 	}
 
 	@Override
-	public void removeData(String key) {
+	public void removeData(KMessage kMessage) {
 
 	}
 }
