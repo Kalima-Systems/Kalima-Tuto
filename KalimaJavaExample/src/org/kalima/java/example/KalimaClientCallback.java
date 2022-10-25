@@ -17,24 +17,26 @@ public class KalimaClientCallback implements ClientCallback {
 	@Override
 	public void onCacheSynchronized(String address) {		
 		if(address.equals("/sensors")) {
-			clone.addListnerForUpdate(new SensorsCallBack(address, clone));
+			clone.addMemCacheCallback(new SensorsCallBack(address, clone));
 		} else if(address.equals("/alarms/fire")) {
-			clone.addListnerForUpdate(new AlarmsCallback(address));
+			clone.addMemCacheCallback(new AlarmsCallback(address));
 		}
 	}
 
 	@Override
-	public void onNewCache(String address) {
-	}
+	public void onNewCache(String address) {}
 
 	@Override
-	public void onNewVersion(int majver, int minver) {
-
-	}
+	public void onNewVersion(int majver, int minver) {}
 
 	@Override
-	public void putRequestData(SocketChannel socketChannel, KMessage kMessage) {
-		
+	public void putRequestData(SocketChannel socketChannel, KMessage kMessage) {}
+
+	@Override
+	public void onReject(SocketChannel arg0) {
+		System.out.println("You are not authorized on this Blockchain.");	
+		System.out.println("Please contact an administrator");
+		System.exit(-1);
 	}
 
 }

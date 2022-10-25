@@ -30,7 +30,7 @@ public class KalimaClientCallBack implements ClientCallback {
 
 	@Override
 	public void onNewCache(String cachePath) {
-		client.getClone().addListnerForUpdate(new CacheCallback(cachePath, client));
+		client.getClone().addMemCacheCallback(new CacheCallback(cachePath, client));
 	}
 
 	@Override
@@ -55,5 +55,12 @@ public class KalimaClientCallBack implements ClientCallback {
 
 	public ContractManager getContractManager() {
 		return contractManager;
+	}
+
+	@Override
+	public void onReject(SocketChannel arg0) {
+		System.out.println("You are not authorized on this Blockchain.");	
+		System.out.println("Please contact an administrator");
+		System.exit(-1);
 	}
 }

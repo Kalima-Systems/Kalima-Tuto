@@ -31,12 +31,19 @@ namespace KalimaCSharpExample
 		{
 			if (address.Equals("/sensors"))
             {
-				client.getClone().addListnerForUpdate(new SensorsCallback(address, client.getClone()));
+				client.getClone().addMemCacheCallback(new SensorsCallback(address, client.getClone()));
 			} else if (address.Equals("/alarms/fire"))
             {
-				client.getClone().addListnerForUpdate(new AlarmsCallback(address));
+				client.getClone().addMemCacheCallback(new AlarmsCallback(address));
             }
 	
+		}
+
+        void ClientCallback.onReject(SocketChannel sc)
+        {
+			Console.WriteLine("You are not authorized on this Blockchain.");
+			Console.WriteLine("Please contact an administrator");
+			Environment.Exit(0);
 		}
     }
 }

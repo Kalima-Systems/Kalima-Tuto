@@ -117,7 +117,6 @@ namespace KalimaCSharpExample
             }
 
             memCache.navigate(new PrintKmsg());
-
         }
 
         private void printContentOfAllAddresses()
