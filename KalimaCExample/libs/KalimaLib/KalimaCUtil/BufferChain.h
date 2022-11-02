@@ -1,40 +1,76 @@
 #ifndef BUFFERCHAIN_H
 #define BUFFERCHAIN_H
 
-#include <stdlib.h>
+/**
+ * @file BufferChain.h
+ * @author Louis Germanicus (louis.germanicus@kalima.io)
+ * @brief String acting as a buffer where you can add and delete data
+ * @version 0.1
+ * @date 2022-10-11
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #include <stdint.h>
 
+/**
+ * @brief Max size of a message to send to BlockChain
+ * 
+ */
 #define SEND_SIZE 8000
+
+/**
+ * @brief Max size of a message received from socket read
+ * 
+ */
 #define BUFFER_SIZE 16000
+
+/**
+ * @brief Max size of Buffer
+ * 
+ */
 #define MAX_BUFFER_SIZE 64000
 
-struct Buffer{
-    uint8_t data[MAX_BUFFER_SIZE];
-    uint16_t BufferSize;
-};
+/**
+ * @brief Buffer structure
+ * @details Structure containing a static uint8_t array with MAX_BUFFER_SIZE as size and the size of the actual data put in the buffer
+ */
 typedef struct Buffer Buffer;
- 
-typedef struct buf_element buf_element;
-struct buf_element
-{
-    uint8_t buffer[BUFFER_SIZE];
-    uint16_t BufferSize;
-    uint16_t KMessageSize;
-    struct buf_element *nxt;
+struct Buffer{
+    uint8_t data[MAX_BUFFER_SIZE]; /**< Static uint8_t array with MAX_BUFFER_SIZE as size */
+    uint16_t BufferSize; /**< Size of the actual data put in the buffer */
 };
- 
-typedef buf_element* bufferlist;
 
-struct Buffer create_Buffer();
-Buffer Buffer_add(Buffer buf, uint8_t* data, uint16_t data_size);
-Buffer Buffer_delete_data(Buffer buf, uint16_t data_size);
-bufferlist Initiate_Buffer_List();
-bufferlist add_Buffer(bufferlist, uint8_t*, uint16_t);
-bufferlist del_first_Buffer(bufferlist);
-void delete_BufferChain(bufferlist list);
-void add_to_buffer(buf_element*, uint8_t*, uint16_t);
-bufferlist add_to_bufferlist(bufferlist, uint8_t*, uint16_t);
-uint16_t Buffer_Nb(bufferlist);
-void set_message_size(buf_element*);
+/**
+ * @brief Initialize an empty Buffer
+ * 
+ * @return pointer to Buffer 
+ */
+Buffer *create_Buffer();
+
+/**
+ * @brief Add data to buffer
+ * 
+ * @param buf Buffer structure
+ * @param data data to add to the buffer
+ * @param data_size size of the data to add
+ */
+void Buffer_add(Buffer *buf, void* data, uint16_t data_size);
+
+/**
+ * @brief Delete data_size characters from the start of the buffer
+ * 
+ * @param buf Buffer structure
+ * @param data_size size of the data to delete (at the start of the buffer)
+ */
+void Buffer_delete_data(Buffer *buf, uint16_t data_size);
+
+/**
+ * @brief Free a Buffer
+ * 
+ * @param buf Pointer to Buffer
+ */
+void Buffer_free(Buffer *buf);
 
 #endif
