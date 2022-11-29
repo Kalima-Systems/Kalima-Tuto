@@ -5,7 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
-#include "../libs/KalimaLib/MQ2/nodelib/Node.h"
+#include "Node.h"
 
 void Menu();
 void send_10_messages(Node *node);
@@ -13,7 +13,11 @@ void send_modulable_message(Node *node);
 
 int main() {
     int choice = 0, end = 0;
-    Node *node = create_Node("../etc/cfg/config.txt", NULL);
+    Node *node = create_Node("etc/cfg/config.txt", NULL);
+    if(node == NULL){
+        printf("Error creating Node. Please verify the config file\n");
+        return 0;
+    } 
     printf("Config loaded\n");
     Connect_to_Notaries(node, NULL);
     sleep(2);
