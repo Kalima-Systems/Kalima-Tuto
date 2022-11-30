@@ -5,4 +5,4 @@ FILES_PATH=log/
 PRIVATE_KEY_FILE=RSA/private.pem
 PUBLIC_KEY_FILE=RSA/public.pem
 BLOCKCHAIN_PUBLIC_KEY_FILE=RSA/public.pem
-SerialID=SmartContractCTest
+SerialID=louisTuto

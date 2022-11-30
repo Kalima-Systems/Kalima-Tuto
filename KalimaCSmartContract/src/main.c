@@ -5,7 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
-#include "../libs/KalimaLib/MQ2/nodelib/Node.h"
+#include "Node.h"
 #include "callback.h"
 
 void Menu();
@@ -14,8 +14,8 @@ void send_modulable_message(Node *node);
 
 int main() {
     int choice = 0, end = 0;
-    ContractList *list = new_ContractList("LuaScripts/", NULL, 0);
-    Node *node = create_Node("../etc/cfg/config.txt",(void*)list);
+    ContractList *list = new_ContractList("LuaScripts/", 1);
+    Node *node = create_Node("etc/cfg/config.txt",(void*)list);
     printf("Config loaded\n");
     ClientCallback* callback = set_callback();
     Connect_to_Notaries(node, callback);
@@ -48,8 +48,9 @@ void send_10_messages(Node *node){
         uint8_t body_size = get_int_len(95+i);
         char body[body_size];
         snprintf(body, body_size+1, "%d", 95+i);
-        put_msg_with_ttl(node->clone, "/sensors", 8, "temperature", 11, body, body_size, 10);
-        printf("Sending value %s to key temperature on address : /sensors\n", body);
+        char key[5];
+        snprintf(key, 5, "%s%d", "key", i);
+        put_msg_with_ttl(node->clone, "/sensors", 8, key, 4, body, body_size, 10);
 		sleep(1);
 	}
 }
@@ -76,10 +77,8 @@ void send_modulable_message(Node *node){
         fgets(msg, sizeof(msg), stdin);
         strtok(msg, "\n");
         put_msg_default(node->clone, address, strlen(address), key, strlen(key), msg, strlen(msg));
-        printf("Sending value %s to key %s on address : %s\n", msg, key, address);
     }
     if(strncmp(choice, "d", 1) == 0){
         remove_msg(node->clone, address, strlen(address), key, strlen(key));
-        printf("Deleting key %s on address : %s\n", key, address);
     }
 }
