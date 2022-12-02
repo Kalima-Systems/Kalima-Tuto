@@ -10,7 +10,6 @@ import org.kalima.util.Logger;
 
 public class CacheCallback implements MemCacheCallback {
 
-	private String gitRepo;
 	private String cachePath;
 	private Logger logger;
 	private Client client;
@@ -20,7 +19,6 @@ public class CacheCallback implements MemCacheCallback {
 		this.cachePath = cachePath;
 		this.logger = client.getLogger();
 		this.client = client;
-		this.gitRepo = client.getGitRepo();
 	}
 
 	@Override
@@ -33,11 +31,15 @@ public class CacheCallback implements MemCacheCallback {
 		KMsg kMsg = KMsg.setMessage(msg);
 		try {
 			if(client.getClientCallBack().getContractManager() != null) {
-				client.getClientCallBack().getContractManager().runFunction(gitRepo + kMsg.getAddress() + ".js", "main", msg, client.getClone(), logger);	
+				if(kMsg.getAddress().equals("/Kalima_Scripts")) {
+					client.getClientCallBack().getContractManager().downloadContract(kMsg.getProps().getProps());
+				} else {
+					client.getClientCallBack().getContractManager().runFunction(kMsg.getAddress().replaceFirst("/", "") + ".js", "main", msg, client.getClone(), logger);	
+				}	
 			}
 		} catch (UnknownContractException e) {
 		} catch (NoSuchMethodException e) {
-			logger.log_srvMsg("SmartContractNode", "CacheCallback", Logger.ERR, "no main method in " + gitRepo + kMsg.getAddress() + ".js");
+			logger.log_srvMsg("SmartContractNode", "CacheCallback", Logger.ERR, "no main method in " + kMsg.getAddress() + ".js");
 			logger.log_srvMsg("SmartContractNode", "CacheCallback", Logger.ERR, e);
 		} catch (RemoteException e) {
 			logger.log_srvMsg("SmartContractNode", "CacheCallback", Logger.ERR, e);

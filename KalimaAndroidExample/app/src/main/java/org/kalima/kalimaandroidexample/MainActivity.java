@@ -64,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
         kalimaServicePreferences.setNodeName("ExampleNode");
         // You need to choose an unused port
         kalimaServicePreferences.setServerPort(9150);
-        // Notaries address and ports (ipAddress:port), separated with ","
-        kalimaServicePreferences.setNotariesList("167.86.103.31:8080,5.189.168.49:8080,173.212.229.88:8080,62.171.153.36:8080,167.86.124.188:8080");
+        kalimaServicePreferences.setKnsURL("http://207.180.247.65:9090");
+        // Name of the privachain
+        kalimaServicePreferences.setPrivachain("org.kalima.tuto");
         // Set list of addresses we want for notifications
         kalimaServicePreferences.setNotificationsCachePaths(new ArrayList<String>(Arrays.asList("/alarms/fire", "/sensors")));
         // Set class path of notification receiver

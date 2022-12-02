@@ -8,12 +8,10 @@ public class Client {
 	private Clone clone;
 	private Logger logger;
 	private KalimaClientCallBack clientCallBack;
-	private ClonePreferences clonePreferences;
-	private String gitRepo; 
+	private ClonePreferences clonePreferences; 
 
 	public Client(String[] args) {
 		clonePreferences = new ClonePreferences(args[0]);
-		this.gitRepo = args[1];
 		logger = clonePreferences.getLoadConfig().getLogger();
 		initComponents();
 	}
@@ -42,9 +40,5 @@ public class Client {
 
 	public KalimaClientCallBack getClientCallBack() {
 		return clientCallBack;
-	}
-
-	public String getGitRepo() {
-		return gitRepo;
 	}	
 }

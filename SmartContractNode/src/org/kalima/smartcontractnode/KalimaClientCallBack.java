@@ -1,5 +1,6 @@
 package org.kalima.smartcontractnode;
 
+import java.io.IOException;
 import java.nio.channels.SocketChannel;
 import java.util.Properties;
 
@@ -29,18 +30,19 @@ public class KalimaClientCallBack implements ClientCallback {
 	public void onNewVersion(int majver, int minver) {}
 
 	@Override
-	public void onNewCache(String cachePath) {
-		client.getClone().addMemCacheCallback(new CacheCallback(cachePath, client));
+	public void onNewCache(String address) {
+		client.getClone().addMemCacheCallback(new CacheCallback(address, client));
 	}
 
 	@Override
-	public void onCacheSynchronized(String cachePath) {
-		if(cachePath.equals("/Kalima_Scripts") && !contractManagerRun) {
+	public void onCacheSynchronized(String address) {
+		if(address.equals("/Kalima_Scripts") && !contractManagerRun) {
 			contractManagerRun = true;
-			contractManager = new ContractManager(logger, "/home/rcs",  new ContractCallback() {
+			contractManager = new ContractManager(logger, logger.getBasePath(),  new ContractCallback() {
 
 				@Override
 				public Properties getContractInfos(String key) {
+					System.out.println("get key " + key);
 					KMsg contractInfosMsg = client.getClone().get("/Kalima_Scripts", key);
 					if(contractInfosMsg == null) {
 						System.out.println("contract infos not found for " + key);
@@ -50,6 +52,9 @@ public class KalimaClientCallBack implements ClientCallback {
 					return contractInfosMsg.getProps().getProps();
 				}
 			});	
+			for(KMessage msg : client.getClone().getMemCache(address).getKvmap().values()) {
+				client.getClientCallBack().getContractManager().downloadContract(KMsg.setMessage(msg).getProps().getProps());
+			}
 		}
 	}
 
