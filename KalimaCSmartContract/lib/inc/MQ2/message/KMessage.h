@@ -30,95 +30,97 @@ struct KMessage{
 };
 
 /**
- * @brief Allocate a new KMessage
+ * @brief Allocate a new empty KMessage
  * 
- * @return Pointer to KMessage
+ * @return Pointer to the newly allocated KMessage
  */
 struct KMessage* KMessage_new();
 /**
- * @brief Create a KMessage
+ * @brief Create a new KMessage
+ * @details The KMessage will be created from an array containing all the data, an integer for the number of frames and an array of each frame size
  * 
  * @param frames Every frames concatenated as a 1D array
  * @param nbFrames Number of frames
- * @param sizes Frames' sizes array
- * @return Pointer to KMessage 
+ * @param sizes Array of each frame size
+ * @return Pointer to the newly created KMessage 
  */
 struct KMessage* create_KMessage(unsigned char* frames, int32_t nbFrames, int32_t* sizes);
 /**
- * @brief Create a KMessage using va_list (crashes on 32bit systems)
+ * @brief Create a new KMessage using va_list (crashes on 32bit systems)
  * 
  * @param nbFrames Number of frames
  * @param frame1 frame1's bytes
  * @param size1 frames1's size
  * @param ...  Same for every frame
- * @return Pointer to KMessage 
+ * @return Pointer to the newly created KMessage
  */
 struct KMessage* create_KMessage2(int32_t nbFrames, unsigned char* frame1, int32_t size1, ...);
 /**
  * @brief Construct Kmessage's Header
+ * @details The Header will be constructed from a KMessage, an integer for the number of frames and an array of each frame size
  * 
- * @param kmessage Pointer to KMessage
+ * @param kmessage Pointer to a KMessage
  * @param nbFrames Number of frames
- * @param sizes KMessage's frames sizes
+ * @param sizes Array of each frame size
  */
 void construct_Header(struct KMessage* kmessage, int32_t nbFrames, int32_t* sizes);
 /**
- * @brief Get the Header from KMessage
+ * @brief Get the Header from a KMessage
  * 
- * @param kmessage Pointer to KMessage
- * @return Pointer to Header
+ * @param kmessage Pointer to the KMessage
+ * @return Pointer to the KMessage's Header
  */
 struct Header* get_Header(struct KMessage* kmessage);
 /**
- * @brief Set the KMessage's Header
+ * @brief Set a KMessage's Header
  * 
- * @param kmessage Pointer to KMessage
- * @param header Pointer to Header
+ * @param kmessage Pointer to the KMessage
+ * @param header Pointer to the Header to set
  */
 void set_Header(struct KMessage* kmessage, struct Header* header);
 /**
- * @brief Get the KMessage's frames
+ * @brief Get a KMessage's frames as a 2D array
  * 
- * @param kmessage Pointer to KMessage
- * @return Frames
+ * @param kmessage Pointer to the KMessage
+ * @return Frames (frame 1 : bytes ; frame 2 : bytes ...)
  */
 unsigned char** get_Frames(struct KMessage* kmessage);
 /**
- * @brief Get the KMessage's frame from index
+ * @brief Get a KMessage's frame from index
  * 
- * @param kmessage Pointer to KMessage
- * @param i Index
+ * @param kmessage Pointer to the KMessage
+ * @param i Index of the frame you want
  * @return Frame corresponding to index
  */
 unsigned char* get_Frame(struct KMessage* kmessage, int32_t i);
 /**
- * @brief Set the KMessage's frames
+ * @brief Set a KMessage's frames
  * 
- * @param kmessage Pointer to KMessage
+ * @param kmessage Pointer to the KMessage
  * @param frames Frames (as concatenated 1D array)
  * @param nbFrames Number of frames
- * @param sizes Frames' sizes
+ * @param sizes Array of frames sizes
  */
 void set_Frames(struct KMessage* kmessage, unsigned char* frames, int32_t nbFrames, int32_t* sizes);
 /**
- * @brief Get DevID from KMessage
+ * @brief Get a DevID from a KMessage
  * 
- * @param kmessage Pointer to KMessage
- * @return DevID string
+ * @param kmessage Pointer to the KMessage
+ * @return DevID array
  */
 unsigned char *get_DEVID(struct KMessage* kmessage);
 /**
- * @brief Get the size of the KMessage's frame corresponding to the index
+ * @brief Get the size of a KMessage's frame corresponding to an index
  * 
- * @param kmessage Pointer to KMessage
- * @param i Index
+ * @param kmessage Pointer to the KMessage
+ * @param i Index of the frame size you want
  * @return Frame's size
  */
 int32_t get_Framesize(struct KMessage* kmessage, int32_t i);
 /**
  * @brief Get the DevID's size from KMessage
  * 
- * @param kmessage Pointer to KMessage
+ * @param kmessage Pointer to the KMessage
  * @return DevID's size
  */
 int32_t get_DEVIDSize(struct KMessage* kmessage);

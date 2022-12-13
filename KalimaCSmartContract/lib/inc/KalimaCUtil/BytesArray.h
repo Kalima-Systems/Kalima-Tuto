@@ -18,6 +18,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 /**
  * @brief Define long format depending on architecture
@@ -28,6 +29,8 @@
 # else
 #  define LONG_A	"lld"
 # endif
+
+void mkdirr(const char *dir);
 
 /**
  * @brief Get number of "c" character in string

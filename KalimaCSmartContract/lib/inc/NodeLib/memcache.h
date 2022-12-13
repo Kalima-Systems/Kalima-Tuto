@@ -35,6 +35,8 @@ struct MemCache{
     List *clientPending;
 };
 
+void set_memcache_log_path(char* path, int path_size);
+
 /**
  * @brief Initialize memCache if Node is a server
  * 

@@ -32,9 +32,9 @@ int LuaPutMsg(lua_State*L){
     uint8_t key_size = lua_tonumber(L,5);
     char* body = (char*)lua_tostring(L,6);
     uint16_t body_size = lua_tonumber(L,7);
-    log_srvMsg(node->config->Files_Path, "KalimaMQ", "Node", INFO, "Sending from contract to notary 1");
+    log_srvMsg(node->config->log_Path, "KalimaMQ", "Node", INFO, "Sending from contract to notary 1");
     put_msg_default(node->clone, address, address_size, key, key_size, body, body_size);
-    log_srvMsg(node->config->Files_Path, "KalimaMQ", "Node", INFO, "Sending from contract to notary 2");
+    log_srvMsg(node->config->log_Path, "KalimaMQ", "Node", INFO, "Sending from contract to notary 2");
     return 0;
 }
 
@@ -49,6 +49,6 @@ int LuaPutLog(lua_State*L){
     void* node_ptr = lua_touserdata(L,1);
     Node* node = (Node*) node_ptr;
     char* log = (char*)lua_tostring(L,2);
-    log_srvMsg(node->config->Files_Path, "Main", "Log", INFO, log);
+    log_srvMsg(node->config->log_Path, "Main", "Log", INFO, log);
     return 0;
 }

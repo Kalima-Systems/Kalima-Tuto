@@ -19,41 +19,43 @@
 
 /**
  * @brief Prop structure (will be put in a LinkedList)
+ * @details Act as a key/value list. Each key has a value (example date/20220101)
  * 
  */
 typedef struct Prop Prop;
 struct Prop
 {
-    char *key;
-    uint16_t key_size;
-    char *value;
-    uint16_t value_size;
+    char *key; /**< Key string */
+    uint16_t key_size; /**< Key size */
+    char *value; /**< Value string */
+    uint16_t value_size; /**< Value size */
 };
 
 /**
- * @brief Creates a new prop
+ * @brief Creates a new Prop
  * 
  * @param key Prop's key
  * @param key_size Prop's key size
  * @param value Prop's value
  * @param value_size Prop's value size
- * @return Pointer to Prop
+ * @return Pointer to the Prop
  */
 Prop* new_prop(char *key, uint16_t key_size, char *value, uint16_t value_size);
 /**
  * @brief Free a prop
  * 
- * @param prop Pointer to prop
+ * @param prop Pointer to the prop
  */
 void free_prop(void* prop);
 /**
  * @brief Creates a new empty proplist
  * 
- * @return Pointer to List
+ * @return Pointer to the List
  */
 List* new_propList();
 /**
- * @brief Set a Prop to the proplist (will be added at the end of the List)
+ * @brief Set a Prop to the proplist
+ * @details Will be added at the start of the List
  * 
  * @param proplist Pointer to List
  * @param key Prop's key

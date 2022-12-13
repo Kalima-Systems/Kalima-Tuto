@@ -29,7 +29,7 @@
 #include "logger.h"
 
 /**
- * @brief Structure for Lua smartcontracts informations
+ * @brief Structure for a Lua smartcontract information
  * 
  */
 typedef struct Lua Lua;
@@ -57,6 +57,13 @@ struct ContractList
     pthread_t WatcherThread; /**< Thread to watch directory */
     int fd;
 };
+
+/**
+ * @brief Set the log path for contractList logs
+ * 
+ * @param path Path string
+ */
+void set_contractList_log_path(char* path, int path_size);
 
 /**
  * @brief Lua initializer
@@ -96,7 +103,6 @@ int set_Lua_List(ContractList *list);
  * @brief Thread to watch directory for events
  * 
  * @param l Pointer to ContractList
- * @return void* 
  */
 void *contract_watcher(void* l);
 /**
@@ -120,20 +126,6 @@ void print_lua_script(Lua*x);
  * @param list Lua List
  */
 void print_lua_list(List*list);
-/**
- * @brief Free a Lua list
- * 
- * @param element Pointer to element
- */
-void list_lua_free(void* element);
-/**
- * @brief Lua compare function to use list_get_index()
- * 
- * @param x Path
- * @param y Pointer to Lua
- * @return strcmp
- */
-int list_lua_cmp(void *x, void* y);
 /**
  * @brief Free a ContractList
  * 

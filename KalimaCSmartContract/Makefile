@@ -18,7 +18,7 @@ Exec:
 clean:
 	rm -rf *.o
 	rm -rf main.run
-	if [ -d log ]; then rm -rf log; fi
+	if [ -d Files/log ]; then rm -rf Files/log; fi
 
 mrproper: clean
 	rm -rf $(EXEC)

@@ -5,7 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
-#include "Node.h"
+#include "callback.h"
 
 void Menu();
 void send_10_messages(Node *node);
@@ -19,7 +19,8 @@ int main() {
         return 0;
     } 
     printf("Config loaded\n");
-    Connect_to_Notaries(node, NULL);
+    ClientCallback* callback = set_callback();
+    Connect_to_Notaries(node, callback);
     sleep(2);
     printf("GO!\n");
     Menu();

@@ -14,8 +14,9 @@ void send_modulable_message(Node *node);
 
 int main() {
     int choice = 0, end = 0;
-    ContractList *list = new_ContractList("LuaScripts/", 1);
+    ContractList *list = new_ContractList("Files/LuaScripts/", 1);
     Node *node = create_Node("etc/cfg/config.txt",(void*)list);
+    set_contractList_log_path(node->config->log_Path, node->config->LogPath_size);
     printf("Config loaded\n");
     ClientCallback* callback = set_callback();
     Connect_to_Notaries(node, callback);

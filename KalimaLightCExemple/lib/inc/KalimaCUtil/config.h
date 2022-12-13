@@ -13,6 +13,9 @@
  */
 
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "LinkedList.h"
 #include "BytesArray.h"
 
@@ -52,7 +55,10 @@ struct Config
     uint16_t Port; /**< Server port if the node is also a server */
     List *Notaries; /**< List of Notary */
     int32_t watchdog; /**< Watchdog (default : -1) */
-    char *Files_Path; /**< Logs files path */
+    char *Files_Path; /**< Files path */
+    char *log_Path; /**< Logs path */
+    char *DevID_Path; /**< DevId path */
+    char *RSA_Path; /**< RSA path */
     char *Serial_ID; /**< String of the SerialID*/
     char *private_key; /**< String of the private key path */
     char *public_key; /**< String of the public key path */
@@ -65,6 +71,9 @@ struct Config
     uint8_t Ledger_size; /**< Size of the Ledger's name */
     uint8_t Node_size; /**< Size of the Node's name */
     uint8_t FilesPath_size; /**< Logs files path size */
+    uint8_t LogPath_size; /**< Logs files path size */
+    uint8_t DevIDPath_size; /**< DevID files path size */
+    uint8_t RSAPath_size; /**< RSA files path size */
     uint8_t SerialId_size; /**< Size of the SerialID */
     uint8_t private_key_size; /**< Size of the private key path */
     uint8_t public_key_size; /**< Size of the public key path */
