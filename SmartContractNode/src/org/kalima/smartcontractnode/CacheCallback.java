@@ -31,13 +31,12 @@ public class CacheCallback implements MemCacheCallback {
 		KMsg kMsg = KMsg.setMessage(msg);
 		try {
 			if(client.getClientCallBack().getContractManager() != null) {
-				if(kMsg.getAddress().equals("/Kalima_Scripts")) {
+				if(kMsg.getAddress().equals(client.getContractCache())) {
 					client.getClientCallBack().getContractManager().downloadContract(kMsg.getProps().getProps());
-				} else {
-					client.getClientCallBack().getContractManager().runFunction(kMsg.getAddress().replaceFirst("/", "") + ".js", "main", msg, client.getClone(), logger);	
+				} else if(kMsg.getAddress().equals("/sensors")) {
+					client.getClientCallBack().getContractManager().runFunction("sensors.js", "main", kMsg, client.getClone(), logger);	
 				}	
 			}
-		} catch (UnknownContractException e) {
 		} catch (NoSuchMethodException e) {
 			logger.log_srvMsg("SmartContractNode", "CacheCallback", Logger.ERR, "no main method in " + kMsg.getAddress() + ".js");
 			logger.log_srvMsg("SmartContractNode", "CacheCallback", Logger.ERR, e);

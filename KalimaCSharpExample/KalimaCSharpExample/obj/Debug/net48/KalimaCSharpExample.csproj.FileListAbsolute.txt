@@ -64,7 +64,6 @@ F:\Documents\Kalima\git\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\bin\D
 F:\Documents\Kalima\git\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\bin\Debug\net48\Kalima.dll
 F:\Documents\Kalima\git\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\bin\Debug\net48\IKVM.OpenJDK.Text.dll
 F:\Documents\Kalima\git\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\bin\Debug\net48\IKVM.OpenJDK.Security.dll
-F:\Documents\Kalima\git\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.csproj.AssemblyReference.cache
 F:\Documents\Kalima\git\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.GeneratedMSBuildEditorConfig.editorconfig
 F:\Documents\Kalima\git\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.AssemblyInfoInputs.cache
 F:\Documents\Kalima\git\KalimaTuto\KalimaCSharpExample\KalimaCSharpExample\obj\Debug\net48\KalimaCSharpExample.AssemblyInfo.cs

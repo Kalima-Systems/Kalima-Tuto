@@ -1,6 +1,5 @@
 package org.kalima.smartcontractnode;
 
-import java.io.IOException;
 import java.nio.channels.SocketChannel;
 import java.util.Properties;
 
@@ -16,7 +15,6 @@ public class KalimaClientCallBack implements ClientCallback {
 	private Client client;
 	private Logger logger ;
 	private ContractManager contractManager;
-	private boolean contractManagerRun = false;
 
 	public KalimaClientCallBack(Client client) {
 		this.client = client; 
@@ -31,19 +29,18 @@ public class KalimaClientCallBack implements ClientCallback {
 
 	@Override
 	public void onNewCache(String address) {
-		client.getClone().addMemCacheCallback(new CacheCallback(address, client));
 	}
 
 	@Override
 	public void onCacheSynchronized(String address) {
-		if(address.equals("/Kalima_Scripts") && !contractManagerRun) {
-			contractManagerRun = true;
+		client.getClone().addMemCacheCallback(new CacheCallback(address, client));
+		if(address.equals(client.getContractCache())) {
 			contractManager = new ContractManager(logger, logger.getBasePath(),  new ContractCallback() {
 
 				@Override
 				public Properties getContractInfos(String key) {
 					System.out.println("get key " + key);
-					KMsg contractInfosMsg = client.getClone().get("/Kalima_Scripts", key);
+					KMsg contractInfosMsg = client.getClone().get(client.getContractCache(), key);
 					if(contractInfosMsg == null) {
 						System.out.println("contract infos not found for " + key);
 						return null;

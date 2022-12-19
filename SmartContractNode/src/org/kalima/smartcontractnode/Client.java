@@ -40,5 +40,9 @@ public class Client {
 
 	public KalimaClientCallBack getClientCallBack() {
 		return clientCallBack;
-	}	
+	}
+
+	public String getContractCache() {
+		return "/Kalima_Contracts/Kalima";
+	}
 }
