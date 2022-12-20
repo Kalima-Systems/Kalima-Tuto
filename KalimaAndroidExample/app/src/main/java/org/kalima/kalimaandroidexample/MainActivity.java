@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
         // You need to choose an unused port
         kalimaServicePreferences.setServerPort(9150);
         // Name of the privachain
-        kalimaServicePreferences.setPrivachain("org.kalima.airdrop.developers");
+        kalimaServicePreferences.setPrivachain("org.kalima.tuto");
         // Set list of addresses we want for notifications
-        kalimaServicePreferences.setNotificationsCachePaths(new ArrayList<String>(Arrays.asList("/delaire.jerome/addr1", "/sensors")));
+        kalimaServicePreferences.setNotificationsCachePaths(new ArrayList<String>(Arrays.asList("/alarms/fire", "/sensors")));
         // Set class path of notification receiver
         // You will receive broadcast in this receiver when new data arrives in CachesPaths you choose with setNotificationsCachePaths
         // Then you can build a notification, even if the app is closed
