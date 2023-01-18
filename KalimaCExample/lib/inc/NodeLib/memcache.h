@@ -76,8 +76,10 @@ void destroy(MemCache* memcache);
  * 
  * @param memcache Pointer to MemCache
  * @param message Pointer to KMessage
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void storeLocal(MemCache* memcache, KMessage *message);
+int8_t storeLocal(MemCache* memcache, KMessage *message);
 
 /**
  * @brief Get the MemCache last sequence
@@ -182,8 +184,10 @@ uint16_t get_MC_Address_size(MemCache* memcache);
  * @param memcache Pointer to MemCache
  * @param address Address string
  * @param address_size Address size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void set_MC_Address(MemCache* memcache, char* address, uint16_t address_size);
+int8_t set_MC_Address(MemCache* memcache, char* address, uint16_t address_size);
 
 /**
  * @brief Get the kvmap

@@ -13,12 +13,6 @@
  */
 
 #include <stdint.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/stat.h>
 
 /**
  * @brief Define long format depending on architecture
@@ -87,8 +81,10 @@ int32_t calculate_ceil(int a, int b);
  * @param data Data to copy
  * @param data_size Data size
  * @param string Output string
+ * @return On success : 1 @n
+ *         On failure : -1
  */
-void set_String(void* data, uint16_t data_size, void** string);
+int8_t set_String(void* data, uint16_t data_size, void** string);
 
 /**
  * @brief Strncmp that automaticaly takes highest length
@@ -98,5 +94,15 @@ void set_String(void* data, uint16_t data_size, void** string);
  * @return Same as strncmp
  */
 int string_compare(char* str1, char* str2);
+
+/**
+ * @brief Get seed for rand
+ * 
+ * @param a clock
+ * @param b time
+ * @param c pid
+ * @return seed
+ */
+unsigned long mix(unsigned long a, unsigned long b, unsigned long c);
 
 #endif

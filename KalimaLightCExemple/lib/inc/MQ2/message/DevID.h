@@ -12,13 +12,8 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <stdint.h>
-#include <unistd.h>
-#include <time.h>
-#include <ifaddrs.h>
+#include "BytesArray.h"
 
 /**
  * @brief MAC Address size (6 uint8_t)
@@ -37,11 +32,20 @@ void random_MACAddress(char macAddr[MACAddr_size]);
  * @brief Get MAC Address from system
  *
  * @param macAddr Output MAC Address
+ * @return On success : 1 @n
+ *         On failure : -1
  */
 #if __linux__
-void get_MACAddress(char macAddr[MACAddr_size]);
+int8_t get_MACAddress(char macAddr[MACAddr_size]);
 #elif __APPLE__
 void get_MACAddress(unsigned char macAddr[MACAddr_size]);
 #endif
+
+/**
+ * @brief Randomize maC address
+ * 
+ * @param macAddr MAC address
+ */
+void randomize_MAC(char* macAddr);
 
 #endif

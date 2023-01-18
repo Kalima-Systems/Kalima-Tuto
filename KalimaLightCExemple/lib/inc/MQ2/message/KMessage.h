@@ -62,8 +62,10 @@ struct KMessage* create_KMessage2(int32_t nbFrames, unsigned char* frame1, int32
  * @param kmessage Pointer to a KMessage
  * @param nbFrames Number of frames
  * @param sizes Array of each frame size
+ * @return On success : 1 @n
+ * 		   On failure : -1
  */
-void construct_Header(struct KMessage* kmessage, int32_t nbFrames, int32_t* sizes);
+int8_t construct_Header(struct KMessage* kmessage, int32_t nbFrames, int32_t* sizes);
 /**
  * @brief Get the Header from a KMessage
  * 
@@ -76,8 +78,10 @@ struct Header* get_Header(struct KMessage* kmessage);
  * 
  * @param kmessage Pointer to the KMessage
  * @param header Pointer to the Header to set
+ * @return On success : 1 @n
+ * 		   On failure : -1
  */
-void set_Header(struct KMessage* kmessage, struct Header* header);
+int8_t set_Header(struct KMessage* kmessage, struct Header* header);
 /**
  * @brief Get a KMessage's frames as a 2D array
  * 
@@ -100,8 +104,10 @@ unsigned char* get_Frame(struct KMessage* kmessage, int32_t i);
  * @param frames Frames (as concatenated 1D array)
  * @param nbFrames Number of frames
  * @param sizes Array of frames sizes
+ * @return On success : 1 @n
+ * 		   On failure : -1
  */
-void set_Frames(struct KMessage* kmessage, unsigned char* frames, int32_t nbFrames, int32_t* sizes);
+int8_t set_Frames(struct KMessage* kmessage, unsigned char* frames, int32_t nbFrames, int32_t* sizes);
 /**
  * @brief Get a DevID from a KMessage
  * 
@@ -248,8 +254,10 @@ int get_SessionIV_size(struct KMessage* kmessage);
  * 
  * @param Kmessage Pointer to KMessage
  * @param type Type
+ * @return On success : 1 @n
+ *         On failure : -1
  */
-void set_Type(struct KMessage* Kmessage, unsigned char type);
+int8_t set_Type(struct KMessage* Kmessage, unsigned char type);
 /**
  * @brief Get the minimum version
  * 

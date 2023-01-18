@@ -51,7 +51,7 @@ void send_10_messages(Node *node){
         snprintf(body, body_size+1, "%d", 95+i);
         char key[5];
         snprintf(key, 5, "%s%d", "key", i);
-        put_msg_with_ttl(node->clone, "/sensors", 8, key, 4, body, body_size, 10);
+        put_msg_with_ttl(node->clone, <address from airdrop>, <address size>, key, 4, body, body_size, 10);
 		sleep(1);
 	}
 }

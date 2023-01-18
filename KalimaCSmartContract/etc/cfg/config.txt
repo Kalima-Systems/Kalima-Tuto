@@ -3,4 +3,4 @@ NODE_NAME=Node Example
 privachain=org.kalima.tuto
 FILES_PATH=Files/
 BLOCKCHAIN_PUBLIC_KEY_FILE=RSA/public.pem
-SerialID=louisTuto
+SerialID=<serialid from airdrop>

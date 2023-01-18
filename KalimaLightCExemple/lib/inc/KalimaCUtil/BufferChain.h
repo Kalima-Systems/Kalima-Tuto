@@ -45,7 +45,8 @@ struct Buffer{
 /**
  * @brief Initialize an empty Buffer
  * 
- * @return pointer to Buffer 
+ * @return On success : Pointer to Buffer @n
+ *         On failure : NULL
  */
 Buffer *create_Buffer();
 
@@ -55,8 +56,10 @@ Buffer *create_Buffer();
  * @param buf Buffer structure
  * @param data data to add to the buffer
  * @param data_size size of the data to add
+ * @return On success : 1 @n
+ *         On failure : -1
  */
-void Buffer_add(Buffer *buf, void* data, uint16_t data_size);
+int8_t Buffer_add(Buffer *buf, void* data, uint16_t data_size);
 
 /**
  * @brief Delete data_size characters from the start of the buffer

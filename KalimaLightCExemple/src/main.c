@@ -53,7 +53,6 @@ void Menu(){
     printf("- 2 ==> Send a modulable message\n");
 }
 
-// Default Message is : cache path = /sensors, key = key, ttl(time to live) = -1
 void send_default_message(Node *node){
     char str[100];
     char temp;
@@ -62,7 +61,7 @@ void send_default_message(Node *node){
     fgets(str, sizeof(str), stdin);      // Get input
     List *kProps = new_propList();
     set_prop(kProps, "ttl", 3, "-1", 2); // will give ttl=-1, meaning the message will stay in blockchain (ttl = time to live)
-    KMsg *kmsg = getMessage(node->devid, UUID_SIZE, get_encoded_Type("PUB"), "/sensors", 8, "Default message", 15, 1, str, strlen(str), kProps); // Create message
+    KMsg *kmsg = getMessage(node->devid, UUID_SIZE, get_encoded_Type("PUB"), <address from airdrop>, <size>, "Default message", 15, 1, str, strlen(str), kProps); // Create message
     send_KMessage(node, kmsg->Kmessage);
     printf("Message sent\n");
     sleep(2); // Waiting for response (in logs)

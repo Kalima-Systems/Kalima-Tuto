@@ -70,8 +70,10 @@ KMsg* getMessage(char* devID, int devID_size, char type, char* address, int addr
  * @brief Set Kmsg->Kprops and Kmsg->props_size from frames
  * 
  * @param Kmsg Pointer to KMsg
+ * @return On success 1 @n
+ *         On failure -1
  */
-void decodeProps(KMsg *Kmsg);
+int8_t decodeProps(KMsg *Kmsg);
 /**
  * @brief Duplicated KMsg
  * 
@@ -114,8 +116,10 @@ unsigned char *getKey(KMsg *Kmsg);
  * @param Kmsg Pointer to KMsg
  * @param key Key string
  * @param key_size Key size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setKey(KMsg *Kmsg, char *key, int key_size);
+int8_t setKey(KMsg *Kmsg, char *key, int key_size);
 /**
  * @brief Get the Kmsg's key size
  * 
@@ -131,8 +135,10 @@ int getKeySize(KMsg *Kmsg);
  * @param format_size Format size
  * @param key Key string
  * @param key_size Key size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void fmtKey(KMsg *Kmsg, char *format, int format_size, char* key, int key_size);
+int8_t fmtKey(KMsg *Kmsg, char *format, int format_size, char* key, int key_size);
 
 /**
  * @brief Get the KMsg's term
@@ -146,8 +152,10 @@ int64_t getTerm(KMsg *Kmsg);
  * 
  * @param Kmsg Pointer to KMsg
  * @param term Term
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setTerm(KMsg *Kmsg, int64_t term);
+int8_t setTerm(KMsg *Kmsg, int64_t term);
 
 /**
  * @brief Get the KMsg's DevID
@@ -162,8 +170,10 @@ unsigned char* getDevID(KMsg *Kmsg);
  * @param Kmsg Pointer to KMsg
  * @param devId DevID string
  * @param devID_size DevID size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setDevID(KMsg *Kmsg, char* devId, int devID_size);
+int8_t setDevID(KMsg *Kmsg, char* devId, int devID_size);
 
 /**
  * @brief Get the KMsg's global sequence
@@ -177,8 +187,10 @@ int64_t getGlobalSequence(KMsg *Kmsg);
  * 
  * @param Kmsg Pointer to KMsg
  * @param sequence Global sequence
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setGlobalSequence(KMsg *Kmsg, int64_t sequence);
+int8_t setGlobalSequence(KMsg *Kmsg, int64_t sequence);
 /**
  * @brief Get the KMsg's sequence
  * 
@@ -191,8 +203,10 @@ int64_t getSequence(KMsg *Kmsg);
  * 
  * @param Kmsg Pointer to KMsg
  * @param sequence Sequence
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setSequence(KMsg *Kmsg, int64_t sequence);
+int8_t setSequence(KMsg *Kmsg, int64_t sequence);
 
 /**
  * @brief Get the KMsg's body
@@ -207,8 +221,10 @@ unsigned char* getBody(KMsg *Kmsg);
  * @param Kmsg Pointer to KMsg
  * @param body Body string
  * @param body_size Body size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setBody(KMsg *Kmsg, char* body, int body_size);
+int8_t setBody(KMsg *Kmsg, char* body, int body_size);
 /**
  * @brief Set the KMsg's body following a format
  * 
@@ -217,8 +233,10 @@ void setBody(KMsg *Kmsg, char* body, int body_size);
  * @param format_size Format size
  * @param body Body string
  * @param body_size Body size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void fmtBody(KMsg *Kmsg, char *format, int format_size, char* body, int body_size);
+int8_t fmtBody(KMsg *Kmsg, char *format, int format_size, char* body, int body_size);
 
 /**
  * @brief Get the KMsg's UUID
@@ -231,8 +249,10 @@ unsigned char* getUUID(KMsg *Kmsg);
  * @brief Set the KMsg's UUID
  * 
  * @param Kmsg Pointer to KMsg
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setUUID(KMsg *Kmsg);
+int8_t setUUID(KMsg *Kmsg);
 
 /**
  * @brief Get the KMsg's address
@@ -261,8 +281,10 @@ unsigned char* getSerialID(KMsg *Kmsg);
  * @param Kmsg Pointer to KMsg
  * @param address Address string
  * @param address_size Address size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setAddress(KMsg *Kmsg, char* address, int address_size);
+int8_t setAddress(KMsg *Kmsg, char* address, int address_size);
 
 /**
  * @brief Set the KMsg's props from encoded proplist
@@ -270,15 +292,19 @@ void setAddress(KMsg *Kmsg, char* address, int address_size);
  * @param Kmsg Pointer to KMsg
  * @param kProps Encoded proplist
  * @param kProps_size Props size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setProps(KMsg *Kmsg, char* kProps, int kProps_size);
+int8_t setProps(KMsg *Kmsg, char* kProps, int kProps_size);
 /**
  * @brief Set the KMsg's props from proplist
  * 
  * @param Kmsg Pointer to KMsg
  * @param kProps Proplist
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setPropsfromlist(KMsg *Kmsg, List *kProps);
+int8_t setPropsfromlist(KMsg *Kmsg, List *kProps);
 /**
  * @brief Get the KMsg's proplist
  * 
@@ -302,8 +328,10 @@ unsigned char* getProp(KMsg *Kmsg, char* propName);
  * @param name_size Prop name size
  * @param value Prop value
  * @param value_size Prop value size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setProp(KMsg *Kmsg, char* name, int name_size, char* value, int value_size);
+int8_t setProp(KMsg *Kmsg, char* name, int name_size, char* value, int value_size);
 
 /**
  * @brief Get the KMsg's check
@@ -318,8 +346,10 @@ unsigned char* getCheck(KMsg *Kmsg);
  * @param Kmsg Pointer to KMsg
  * @param check Check string
  * @param check_size Check size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setCheck(KMsg *Kmsg, char* check, int check_size);
+int8_t setCheck(KMsg *Kmsg, char* check, int check_size);
 
 /**
  * @brief Get the KMsg's sign
@@ -334,8 +364,10 @@ unsigned char* getSign(KMsg *Kmsg);
  * @param Kmsg Pointer to KMsg
  * @param sign Sign string
  * @param sign_size Sign size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setSign(KMsg *Kmsg, char* sign, int sign_size);
+int8_t setSign(KMsg *Kmsg, char* sign, int sign_size);
 
 /**
  * @brief Get the KMsg's previous sequence
@@ -349,8 +381,10 @@ int64_t getPrevious(KMsg *Kmsg);
  * 
  * @param Kmsg Pointer to KMsg
  * @param prev Previous sequence
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setPrevious(KMsg *Kmsg, int64_t prev);
+int8_t setPrevious(KMsg *Kmsg, int64_t prev);
 /**
  * @brief Get the KMsg's previous term
  * 
@@ -363,8 +397,10 @@ int64_t getPrevTerm(KMsg *Kmsg);
  * 
  * @param Kmsg Pointer to KMsg
  * @param term Previous term
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void setPrevTerm(KMsg *Kmsg, int64_t term);
+int8_t setPrevTerm(KMsg *Kmsg, int64_t term);
 /**
  * @brief Get the KMsg's body size
  * 

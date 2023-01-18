@@ -70,8 +70,10 @@ Node *create_Node(char *config_input, void *contract_list);
  *
  * @param node Pointer to Node
  * @param clientcallback Pointer to ClientCallback
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void Connect_to_Notaries(Node *node, ClientCallback *clientcallback);
+int8_t Connect_to_Notaries(Node *node, ClientCallback *clientcallback);
 /**
  * @brief Send crypted KMessage to notaries
  *

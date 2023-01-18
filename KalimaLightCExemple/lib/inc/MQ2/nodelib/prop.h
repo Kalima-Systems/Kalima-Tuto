@@ -62,15 +62,19 @@ List* new_propList();
  * @param key_size Prop's key size
  * @param value Prop's value
  * @param value_size Prop's value size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void set_prop(List *proplist, char *key, uint16_t key_size, char *value, uint16_t value_size);
+int8_t set_prop(List *proplist, char *key, uint16_t key_size, char *value, uint16_t value_size);
 /**
  * @brief Removes a Prop based on its key
  * 
  * @param proplist Pointer to List
  * @param key Key to the Prop to delete
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void remove_prop(List *proplist, char* key);
+int8_t remove_prop(List *proplist, char* key);
 /**
  * @brief Gets the number of Props in a proplist
  * 

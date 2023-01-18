@@ -27,7 +27,7 @@ void putData(void* client_ptr, KMessage* Kmessage){
         return;
     
     if(contract_list->iscrypted == 1){
-        if(strncmp(address,"/Kalima_Scripts",getAddressSize(kmsg))==0){
+        if(strncmp(address,<contracts address>,getAddressSize(kmsg))==0){
             char* key = (char*)getKey(kmsg);
             char *file;
             set_String(key, strlen(key), (void**)&file);
@@ -72,7 +72,7 @@ void putData(void* client_ptr, KMessage* Kmessage){
 
         if(contract_list != NULL){
             log_srvMsg(client->node->config->log_Path, "Contract", "Manager", INFO, "data received");
-            if(strncmp(address,"/sensors",getAddressSize(kmsg))==0){
+            if(strncmp(address,<address watched>,getAddressSize(kmsg))==0){
                 log_srvMsg(client->node->config->log_Path, "Contract", "Manager", INFO, "Using contract sensors.lua");
                 Lua* Lua_contract = load_Contract(contract_list, "sensors.lua");
                 if(Lua_contract == NULL){

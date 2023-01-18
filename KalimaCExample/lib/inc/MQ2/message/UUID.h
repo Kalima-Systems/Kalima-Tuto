@@ -16,7 +16,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include <unistd.h>
 #include "DevID.h"
 #include "BytesArray.h"
 
@@ -117,19 +116,24 @@ int get_HashCode(UUID uuid);
  * 
  * @param uuid UUID
  * @param uuid_out UUID as a string
+ * @return On success : 1 @n
+ *         On failure : -1
  */
-void uuid_to_String(UUID uuid, char* uuid_out);
+int8_t uuid_to_String(UUID uuid, char* uuid_out);
 /**
  * @brief Creates UUID and output UUID as a string
  * 
  * @param uuid_out UUID as a string
+ * @return On success : 1 @n
+ *         On failure : -1
  */
-void uuid_String(char* uuid_out);
+int8_t uuid_String(char* uuid_out);
 /**
  * @brief Creates random UUID and output UUID as a string from random MAC Address
  * 
  * @param size UUID's size
- * @return UUID as a string
+ * @return On success : random UUID string @n
+ *         On failure : NULL
  */
 char* random_uuid(uint8_t size);
 

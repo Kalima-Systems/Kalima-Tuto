@@ -76,22 +76,28 @@ int32_t* get_Sizes(struct Header* header);
  * 
  * @param header Pointer to Header to set the size
  * @param headerSize Size to set
+ * @return On success : 1 @n
+ * 		   On failure : -1
  */
-void set_Header_Size(struct Header* header, int32_t headerSize);
+int8_t set_Header_Size(struct Header* header, int32_t headerSize);
 /**
  * @brief Set the number of KMessage's frames in Header
  * 
  * @param header Pointer to Header
  * @param nbFrames Number of frames
+ * @return On success : 1 @n
+ * 		   On failure : -1
  */
-void set_Nb_Frames(struct Header* header, int32_t nbFrames);
+int8_t set_Nb_Frames(struct Header* header, int32_t nbFrames);
 /**
  * @brief Set the KMessage's frames sizes in Header
  * 
  * @param header Pointer to Header
  * @param sizes Frames' sizes
+ * @return On success : 1 @n
+ * 		   On failure : -1
  */
-void set_Sizes(struct Header* header, int32_t *sizes);
+int8_t set_Sizes(struct Header* header, int32_t *sizes);
 
 /// @private
 /**

@@ -12,9 +12,8 @@
  * 
  */
 
-#include <stdlib.h>
 #include <stdint.h>
-#include <stdio.h>
+
 /**
  * @brief Free function used in free and delete functions (with a List element as parameter)
  * 

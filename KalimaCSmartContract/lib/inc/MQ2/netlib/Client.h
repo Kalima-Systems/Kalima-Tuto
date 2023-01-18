@@ -100,15 +100,19 @@ void *Client_handler(void *cli);
  * @param client Pointer to Client
  * @param message Message to add
  * @param size Message size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void write_Client(Client *client, unsigned char *message, uint16_t size);
+int8_t write_Client(Client *client, unsigned char *message, uint16_t size);
 /**
  * @brief Encrypt and call write_Client()
  *
  * @param client Pointer to Client
  * @param Kmessage Pointer to KMessage to send
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void send_to_Notary(Client *client, KMessage *Kmessage);
+int8_t send_to_Notary(Client *client, KMessage *Kmessage);
 
 /**
  * @brief Act as a boolean to see if Client is connected to a Notary

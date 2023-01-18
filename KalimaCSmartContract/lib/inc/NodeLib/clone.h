@@ -110,8 +110,10 @@ MemCache* getMemCache(Clone* clone, char* address, uint8_t address_size);
  * @param clone Pointer to Clone
  * @param addressList List of addresses to resync
  * @param snapshotForAllAddresses Flag (if =1, resync everything)
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void resyncAddresses(Clone* clone, char* addressList, uint8_t snapshotForAllAddresses);
+int8_t resyncAddresses(Clone* clone, char* addressList, uint8_t snapshotForAllAddresses);
 /**
  * @brief Get List of memcaches
  * 
@@ -125,8 +127,10 @@ SkipList_t *getMemCaches(Clone* clone);
  * @param clone Pointer to Clone
  * @param address Address string
  * @param address_size Address string size
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void addAddress(Clone* clone, char* address, uint8_t address_size);
+int8_t addAddress(Clone* clone, char* address, uint8_t address_size);
 //void updateCacheList(Clone* clone);
 /**
  * @brief Set KMessage to Clone's memcache corresponding to address
@@ -135,8 +139,10 @@ void addAddress(Clone* clone, char* address, uint8_t address_size);
  * @param address Address of where to add data
  * @param address_size Address size
  * @param message Pointer to KMessage to add
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void set(Clone* clone, char* address, uint8_t address_size, KMessage* message);
+int8_t set(Clone* clone, char* address, uint8_t address_size, KMessage* message);
 /**
  * @brief Check if message received hax a good sequence
  * 
@@ -154,8 +160,10 @@ uint8_t checkSequence(Clone* clone, KMsg* msg, MemCache* memcache);
  * @param address_size Address size
  * @param msg Pointer to Kmsg containing message
  * @param memcache Pointer to Memcache where to add data
+ * @return On success : 1 @n 
+ *         On failure : -1
  */
-void store(Clone* clone, char* address, uint8_t address_size, KMsg* msg, MemCache* memcache);
+int8_t store(Clone* clone, char* address, uint8_t address_size, KMsg* msg, MemCache* memcache);
 /**
  * @brief Print Clone
  * 
