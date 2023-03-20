@@ -19,8 +19,9 @@ int main() {
         return 0;
     } 
     printf("Config loaded\n");
-    ClientCallback* callback = set_callback();
-    Connect_to_Notaries(node, callback);
+    Connect_to_Notaries(node);
+    ClientCallback* clientCallback = set_clientCallback();
+    add_ClientCallback(node, clientCallback);
     sleep(2);
     printf("GO!\n");
     Menu();
@@ -50,8 +51,8 @@ void send_10_messages(Node *node){
         snprintf(body, body_size+1, "%d", 95+i);
         char key[13];
         snprintf(key, 13, "%s%d", "temperature", i);
-        put_msg_with_ttl(node->clone, <address from airdrop>, <address size>, key, 12, body, body_size, 10);
-        printf("Sending value %s to key %s on address : <address>\n", body, key);
+        put_msg_with_ttl(node->clone, "/sensors", 8, key, 12, body, body_size, 10);
+        printf("Sending value %s to key %s on address : /sensors\n", body, key);
 		sleep(1);
 	}
 }

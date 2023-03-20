@@ -69,11 +69,17 @@ Node *create_Node(char *config_input, void *contract_list);
  * @brief Handle create_Node() for every Notary
  *
  * @param node Pointer to Node
- * @param clientcallback Pointer to ClientCallback
  * @return On success : 1 @n 
  *         On failure : -1
  */
-int8_t Connect_to_Notaries(Node *node, ClientCallback *clientcallback);
+int8_t Connect_to_Notaries(Node *node);
+/**
+ * @brief Add a callback to the node's clients
+ * 
+ * @param node Pointer to Node
+ * @param clientcallback Pointer to ClientCallback 
+*/
+void add_ClientCallback(Node *node, ClientCallback *clientcallback);
 /**
  * @brief Send crypted KMessage to notaries
  *

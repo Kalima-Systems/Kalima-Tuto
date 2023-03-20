@@ -19,6 +19,7 @@
 #include "config.h"
 #include "Node.h"
 #include "memcache.h"
+#include "memcacheCallback.h"
 
 /**
  * @brief Clone Structure
@@ -121,6 +122,15 @@ int8_t resyncAddresses(Clone* clone, char* addressList, uint8_t snapshotForAllAd
  * @return Pointer to SkipList_t 
  */
 SkipList_t *getMemCaches(Clone* clone);
+/**
+ * @brief add a callback to a memcache
+ * 
+ * @param clone clone
+ * @param memcachecallback memcachecallback
+ * @return On success : 1 @n 
+ *         On failure : -1
+ */
+int8_t add_MemCacheCallback(Clone* clone, MemCacheCallback* memcachecallback);
 /**
  * @brief Add address to memcaches
  * 

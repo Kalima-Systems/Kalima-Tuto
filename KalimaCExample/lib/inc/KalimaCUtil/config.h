@@ -60,6 +60,7 @@ struct Config
     char *private_key; /**< String of the private key path */
     char *public_key; /**< String of the public key path */
     char *blockchain_public_key; /**< String of the blockchain public key path */
+    char *contract_user;
     /*@}*/
     /**
      * @name Size of data from config file
@@ -75,6 +76,7 @@ struct Config
     uint8_t private_key_size; /**< Size of the private key path */
     uint8_t public_key_size; /**< Size of the public key path */
     uint8_t blockchain_public_key_size; /**< Size of the blockchain public key path */
+    uint8_t contract_user_size;
 };
 
 /**

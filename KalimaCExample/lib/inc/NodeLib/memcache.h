@@ -17,6 +17,7 @@
 #include "compare.h"
 #include "BytesArray.h"
 #include "KMsg.h"
+#include "memcacheCallback.h"
 
 /**
  * @brief MemCache Structure
@@ -33,6 +34,7 @@ struct MemCache{
     SkipList_t *kvqueue; /**< KeyValue skiplist with key = sequence / value = KMsg key */
     List *snapshotPending;
     List *clientPending;
+    MemCacheCallback *memcachecallback;
 };
 
 void set_memcache_log_path(char* path, int path_size);
@@ -74,12 +76,13 @@ void destroy(MemCache* memcache);
 /**
  * @brief Store KMessage to MemCache
  * 
+ * @param clone Clone as a void*
  * @param memcache Pointer to MemCache
  * @param message Pointer to KMessage
  * @return On success : 1 @n 
  *         On failure : -1
  */
-int8_t storeLocal(MemCache* memcache, KMessage *message);
+int8_t storeLocal(void* clone, MemCache* memcache, KMessage *message);
 
 /**
  * @brief Get the MemCache last sequence

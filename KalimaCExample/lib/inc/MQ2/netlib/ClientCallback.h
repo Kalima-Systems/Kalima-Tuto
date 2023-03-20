@@ -21,20 +21,15 @@
  */
 typedef void (*ClientCallback_send)  (KMessage* Kmessage);
 /**
- * @brief Function Interface set in Treat Read. User needs to create his own putData function with same format and if will get data from Client
+ * @brief Not set
  * 
  */
-typedef void (*ClientCallback_putData)  (void* client, KMessage* Kmessage);
+typedef void (*ClientCallback_onNewAddress)  (void* node, char* address, uint8_t address_size);
 /**
  * @brief Not set
  * 
  */
-typedef void (*ClientCallback_onNewAddress)  (char* address, uint8_t address_size);
-/**
- * @brief Not set
- * 
- */
-typedef void (*ClientCallback_onAddressSynchronized)  (char* address, uint8_t address_size);
+typedef void (*ClientCallback_onAddressSynchronized)  (void* node, char* address, uint8_t address_size);
 /**
  * @brief Notary node rejected join request
  * 
@@ -47,7 +42,6 @@ typedef void (*ClientCallback_onReject)  (void* client);
  */
 struct ClientCallback{
     ClientCallback_send send;
-    ClientCallback_putData putData;
     ClientCallback_onNewAddress onNewAddress;
     ClientCallback_onAddressSynchronized onAddressSynchronized;
     ClientCallback_onReject onReject;
@@ -58,11 +52,11 @@ typedef struct ClientCallback ClientCallback;
  * @brief Create ClientCallback to send to Node with user's created functions
  * 
  * @param send Send function
- * @param putData putData function
  * @param onNewAddress onNewAddress function
  * @param onAddressSynchronized onAddressSynchronized function
+ * @param onReject onReject function
  * @return Pointer to ClientCallback 
  */
-ClientCallback* new_ClientCallback(ClientCallback_send send, ClientCallback_putData putData, ClientCallback_onNewAddress onNewAddress, ClientCallback_onAddressSynchronized onAddressSynchronized, ClientCallback_onReject onReject);
+ClientCallback* new_ClientCallback(ClientCallback_send send, ClientCallback_onNewAddress onNewAddress, ClientCallback_onAddressSynchronized onAddressSynchronized, ClientCallback_onReject onReject);
 
 #endif

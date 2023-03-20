@@ -10,6 +10,7 @@
 #include <pthread.h>
 #include "Node.h"
 
-ClientCallback* set_callback();
+ClientCallback* set_clientCallback();
+MemCacheCallback* set_memcacheCallback();
 
 #endif

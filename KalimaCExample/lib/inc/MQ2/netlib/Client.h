@@ -60,11 +60,13 @@ struct Client
     uint8_t ip_size;                                                                      /**< IP address size */
     uint16_t port;                                                                        /**< Port of server to connect to */
     uint8_t awaitingIHY;                                                                  /**< Act as boolean to see if a message has been received since last KEEPALIVE_INTERVAL */
+    uint8_t messageSent;                                                                  /**< Act as boolean to see if a message has been sent since last KEEPALIVE_INTERVAL */
+    pthread_mutex_t msgsentLock;                                                          /**< Mutex protecting messageSent */
     SkipList_t *data_recv, *pending_data, *write_data, *pending_message;                  /**< Different skiplist that act as pending buffers (data_recv : data received / pending_data : data to be sent / write_data : to be sure that data is received by blockchain / pending_message : stock pendings when deconnected) */
     Buffer *buffer;                                                                       /**< Buffer to be treated (Concatenation of data_recv) */
     pthread_mutex_t recvLock, pendingdLock, writeLock, sockLock, connectLock, rejoinLock; /**< Mutex protecting key informations */
 #if __linux__
-    sem_t rec_sem, send_sem; /**< Semaphores waiting for data to not have a while running */
+    sem_t rec_sem, send_sem; /**< Semaphores */
 #elif __APPLE__
     sem_t *rec_sem, *send_sem;
 #endif
