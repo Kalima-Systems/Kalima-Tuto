@@ -15,7 +15,7 @@ public class Client {
 
 	private Clone clone;
 	private Logger logger;
-	public static String USERNAME = "louis.germanitest";
+	public static String USERNAME = "...";
 
 	public static void main(String args[]) {
 		new Client(args[0]);
