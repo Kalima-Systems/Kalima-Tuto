@@ -33,8 +33,8 @@ public class CacheCallback implements MemCacheCallback {
 			if(client.getClientCallBack().getContractManager() != null) {
 				if(kMsg.getAddress().equals(client.getContractCache())) {
 					client.getClientCallBack().getContractManager().downloadContract(kMsg.getProps().getProps());
-				} else if(kMsg.getAddress().equals("/sensors")) {
-					client.getClientCallBack().getContractManager().runFunction("sensors.js", "main", kMsg, client.getClone(), logger);	
+				} else if(kMsg.getAddress().equals("/" + Client.USERNAME + "/addr1")) {
+					client.getClientCallBack().getContractManager().runFunction("contracttest.js", "main", kMsg, client.getClone(), logger);	
 				}	
 			}
 		} catch (NoSuchMethodException e) {

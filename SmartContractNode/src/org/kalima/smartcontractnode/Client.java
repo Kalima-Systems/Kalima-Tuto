@@ -8,7 +8,8 @@ public class Client {
 	private Clone clone;
 	private Logger logger;
 	private KalimaClientCallBack clientCallBack;
-	private ClonePreferences clonePreferences; 
+	private ClonePreferences clonePreferences;
+	public static String USERNAME = "...";
 
 	public Client(String[] args) {
 		clonePreferences = new ClonePreferences(args[0]);
@@ -43,6 +44,6 @@ public class Client {
 	}
 
 	public String getContractCache() {
-		return "/Kalima_Contracts/Kalima";
+		return "/Kalima_Contracts/" + USERNAME;
 	}
 }
