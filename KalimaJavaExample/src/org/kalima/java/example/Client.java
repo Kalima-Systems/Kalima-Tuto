@@ -15,6 +15,7 @@ public class Client {
 
 	private Clone clone;
 	private Logger logger;
+	public static String USERNAME = "louis.germanitest";
 
 	public static void main(String args[]) {
 		new Client(args[0]);
@@ -104,7 +105,7 @@ public class Client {
 	}
 
 	private void putTemperature(int temperature) {
-		clone.put("/sensors", "temperature", String.valueOf(temperature).getBytes());
+		clone.put("/" + USERNAME + "/addr1", "temperature", String.valueOf(temperature).getBytes());
 	}
 	 
 }

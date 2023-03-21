@@ -16,9 +16,9 @@ public class KalimaClientCallback implements ClientCallback {
 
 	@Override
 	public void onCacheSynchronized(String address) {		
-		if(address.equals("/sensors")) {
+		if(address.equals("/" + Client.USERNAME + "/addr1")) {
 			clone.addMemCacheCallback(new SensorsCallBack(address, clone));
-		} else if(address.equals("/alarms/fire")) {
+		} else if(address.equals("/" + Client.USERNAME + "/addr2")) {
 			clone.addMemCacheCallback(new AlarmsCallback(address));
 		}
 	}

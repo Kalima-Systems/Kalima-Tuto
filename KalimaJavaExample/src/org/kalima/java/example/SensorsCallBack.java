@@ -23,7 +23,7 @@ public class SensorsCallBack implements MemCacheCallback{
 		if(key.equals("temperature")) {
 			int temperature = Integer.parseInt(new String(msg.getBody()));
 			if(temperature >= 100) {
-				clone.put("/alarms/fire", "temperature", ("Temperature too high: " + temperature + " °C").getBytes());
+				clone.put("/" + Client.USERNAME + "/addr2", "temperature", ("Temperature too high: " + temperature + " °C").getBytes());
 			}
 		}
 	}
