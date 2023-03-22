@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\etc",
+    "\\etc\\cfg"
   ],
+  "SelectedNode": "\\KalimaCSharpExample.csproj",
   "PreviewInSolutionExplorer": false
 }
