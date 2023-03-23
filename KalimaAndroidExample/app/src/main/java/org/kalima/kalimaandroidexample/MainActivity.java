@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private KalimaCacheCallback kalimaCacheCallback;
     private final String APP_NAME = "org.kalima.kalimaandroidexample";
 
+    public static String USERNAME = "...";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         ListView addressesListView = findViewById(R.id.addresses);
         final ArrayList<String> addressesList = new ArrayList<>();
-        addressesList.add("/alarms/fire");
-        addressesList.add("/sensors");
+        addressesList.add("/" + USERNAME + "/addr1");
+        addressesList.add("/" + USERNAME + "/addr2");
         final ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), R.layout.listview_addresses, R.id.tv_address, addressesList);
         addressesListView.setAdapter(adapter);
 
@@ -51,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         Button testSend = findViewById(R.id.test_send);
         testSend.setOnClickListener(v -> {
             try {
-                // send message in address /sensors with key "temperature"
-                kalimaServiceAPI.set("/sensors", "temperature2", editText.getText().toString().getBytes(), "-1");
+                // send message in address /addr1 with key "temperature"
+                kalimaServiceAPI.set("/" + USERNAME + "/addr1", "temperature", editText.getText().toString().getBytes(), "-1");
                 editText.setText("");
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         // Name of the privachain
         kalimaServicePreferences.setPrivachain("org.kalima.tuto");
         // Set list of addresses we want for notifications
-        kalimaServicePreferences.setNotificationsCachePaths(new ArrayList<String>(Arrays.asList("/alarms/fire", "/sensors")));
+        kalimaServicePreferences.setNotificationsCachePaths(new ArrayList<String>(Arrays.asList("/" + USERNAME + "/addr1", "/" + USERNAME + "/addr2")));
         // Set class path of notification receiver
         // You will receive broadcast in this receiver when new data arrives in CachesPaths you choose with setNotificationsCachePaths
         // Then you can build a notification, even if the app is closed

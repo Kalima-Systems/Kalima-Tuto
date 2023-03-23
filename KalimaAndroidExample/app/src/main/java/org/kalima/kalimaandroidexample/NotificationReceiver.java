@@ -29,8 +29,8 @@ public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         KMsgParcelable kMsgParcelable = intent.getParcelableExtra(KalimaService.EXTRA_MSG);
-        String cachePath = intent.getStringExtra(KalimaService.EXTRA_CACHE_PATH);
-        Log.d("notification", "cachePath=" + cachePath + " key=" + kMsgParcelable.getKey());
+        String address = intent.getStringExtra(KalimaService.EXTRA_CACHE_PATH);
+        Log.d("notification", "address=" + address + " key=" + kMsgParcelable.getKey());
 
         // You can choose an activity to start, when user click on notification
         Intent dialogIntent = new Intent(context, MainActivity.class);
@@ -39,7 +39,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.stat_sys_warning)
-                .setContentTitle(cachePath)
+                .setContentTitle(address)
                 .setContentText(kMsgParcelable.getKey() + " value=" + new String(kMsgParcelable.getBody()))
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)

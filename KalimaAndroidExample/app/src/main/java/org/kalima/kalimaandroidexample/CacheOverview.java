@@ -29,10 +29,10 @@ public class CacheOverview extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cache_overview);
-        final String cachePathName = getIntent().getStringExtra("address");
+        final String addressName = getIntent().getStringExtra("address");
 
         final TextView cache = findViewById(R.id.tv_address);
-        cache.setText(cachePathName);
+        cache.setText(addressName);
 
         ListView entriesListView = findViewById(R.id.listview_cache_overview);
         final ArrayList<KMsgParcelable> messages = new ArrayList<>();
@@ -41,8 +41,8 @@ public class CacheOverview extends AppCompatActivity {
 
         kalimaCacheCallback = new KalimaCacheCallback.Stub() {
             @Override
-            public void onEntryUpdated(String cachePath, KMsgParcelable kMsgParcelable) throws RemoteException {
-                if(cachePath.equals(cachePathName)) {
+            public void onEntryUpdated(String address, KMsgParcelable kMsgParcelable) throws RemoteException {
+                if(address.equals(addressName)) {
                     messages.remove(kMsgParcelable);
                     messages.add(kMsgParcelable);
                     runOnUiThread(() -> adapter.setMessages(messages));
@@ -50,8 +50,8 @@ public class CacheOverview extends AppCompatActivity {
             }
 
             @Override
-            public void onEntryDeleted(String cachePath, String key) throws RemoteException {
-                if(cachePath.equals(cachePathName)) {
+            public void onEntryDeleted(String address, String key) throws RemoteException {
+                if(address.equals(addressName)) {
                     messages.remove(new KMsgParcelable(key, "".getBytes(), 0, -1, "".getBytes()));
                     runOnUiThread(() -> adapter.setMessages(messages));
                 }
@@ -71,7 +71,7 @@ public class CacheOverview extends AppCompatActivity {
                 try {
                     kalimaServiceAPI.addKalimaCacheCallback(kalimaCacheCallback);
                     messages.clear();
-                    messages.addAll(kalimaServiceAPI.getAll(cachePathName,  true, null));
+                    messages.addAll(kalimaServiceAPI.getAll(addressName,  true, null));
                     runOnUiThread(() -> adapter.setMessages(messages));
                 } catch (RemoteException e) {
                     e.printStackTrace();
