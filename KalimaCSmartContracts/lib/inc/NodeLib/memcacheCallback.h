@@ -22,11 +22,6 @@ typedef void (*MemCacheCallback_putData)  (void* clone, KMessage* Kmessage);
  * 
  */
 typedef void (*MemCacheCallback_removeData)  (void* clone, KMessage* Kmessage);
-/**
- * @brief Function Interface set in memcache.
- * 
- */
-typedef char* (*MemCacheCallback_getAddress)  ();
 
 /**
  * @brief Structure containing functions
@@ -35,7 +30,7 @@ typedef char* (*MemCacheCallback_getAddress)  ();
 struct MemCacheCallback{
     MemCacheCallback_putData putData;
     MemCacheCallback_removeData removeData;
-    MemCacheCallback_getAddress getAddress;
+    char* getAddress;
 };
 typedef struct MemCacheCallback MemCacheCallback;
 
@@ -44,8 +39,8 @@ typedef struct MemCacheCallback MemCacheCallback;
  * 
  * @param putData putData function
  * @param removeData removeData function
- * @param getAddress getAddress function
+ * @param getAddress getAddress char*
  * @return Pointer to MemCacheCallback 
  */
-MemCacheCallback* new_MemCacheCallback(MemCacheCallback_putData putData, MemCacheCallback_removeData removeData, MemCacheCallback_getAddress getAddress);
+MemCacheCallback* new_MemCacheCallback(MemCacheCallback_putData putData, MemCacheCallback_removeData removeData, char* getAddress);
 #endif

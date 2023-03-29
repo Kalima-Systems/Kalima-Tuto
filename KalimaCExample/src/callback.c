@@ -1,26 +1,5 @@
 #include "callback.h"
 
-ClientCallback* new_ClientCallback(ClientCallback_send send, ClientCallback_onNewAddress onNewAddress, ClientCallback_onAddressSynchronized onAddressSynchronized, ClientCallback_onReject onReject){
-    ClientCallback* cb = malloc(sizeof(ClientCallback));
-    if(cb == NULL){
-      return NULL;
-    }
-    cb->send = send;
-    cb->onNewAddress = onNewAddress;
-    cb->onAddressSynchronized = onAddressSynchronized;
-    cb->onReject = onReject;
-    return cb;
-}
-
-MemCacheCallback* new_MemCacheCallback(MemCacheCallback_putData putData, MemCacheCallback_removeData removeData, MemCacheCallback_getAddress getAddress){
-    MemCacheCallback* mb = malloc(sizeof(MemCacheCallback));
-    if(mb == NULL) return NULL;
-    mb->putData = putData;
-    mb->removeData = removeData;
-    mb->getAddress = getAddress;
-    return mb;
-}
-
 void c_send(KMessage* Kmessage){
     if(Kmessage != NULL){}
 }
@@ -73,14 +52,10 @@ void removeData(void* clone_ptr, KMessage* Kmessage){
     free(key), free(body), free(address);
 }
 
-char* mc_getAddress(){
-    return "/sensors";
-}
-
 ClientCallback* set_clientCallback(){
     return new_ClientCallback(c_send, onNewAddress, onAddressSynchronized, onReject);
 }
 
 MemCacheCallback* set_memcacheCallback(){
-    return new_MemCacheCallback(putData, removeData, mc_getAddress);
+    return new_MemCacheCallback(putData, removeData, "/sensors");
 }
