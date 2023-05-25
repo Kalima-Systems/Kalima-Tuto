@@ -9,7 +9,7 @@ public class Client {
 	private Logger logger;
 	private KalimaClientCallBack clientCallBack;
 	private ClonePreferences clonePreferences;
-	public static String USERNAME = "...";
+	public static String USERNAME = "jerome.delaire";
 
 	public Client(String[] args) {
 		clonePreferences = new ClonePreferences(args[0]);

@@ -4,8 +4,8 @@ import java.nio.channels.SocketChannel;
 import java.util.Properties;
 
 import org.kalima.cache.lib.KMsg;
-import org.kalima.contractManager.ContractCallback;
-import org.kalima.contractManager.ContractManager;
+import org.kalima.contract.manager.ContractCallback;
+import org.kalima.contract.manager.ContractManager;
 import org.kalima.kalimamq.message.KMessage;
 import org.kalima.kalimamq.nodelib.ClientCallback;
 import org.kalima.util.Logger;

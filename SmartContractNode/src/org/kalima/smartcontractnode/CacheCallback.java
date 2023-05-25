@@ -3,7 +3,6 @@ package org.kalima.smartcontractnode;
 import java.rmi.RemoteException;
 
 import org.kalima.cache.lib.KMsg;
-import org.kalima.contractManager.UnknownContractException;
 import org.kalima.kalimamq.message.KMessage;
 import org.kalima.kalimamq.nodelib.MemCacheCallback;
 import org.kalima.util.Logger;
@@ -34,7 +33,9 @@ public class CacheCallback implements MemCacheCallback {
 				if(kMsg.getAddress().equals(client.getContractCache())) {
 					client.getClientCallBack().getContractManager().downloadContract(kMsg.getProps().getProps());
 				} else if(kMsg.getAddress().equals("/" + Client.USERNAME + "/addr1")) {
-					client.getClientCallBack().getContractManager().runFunction("contracttest.js", "main", kMsg, client.getClone(), logger);	
+					client.getClientCallBack().getContractManager().runFunction("addr1.js", "main", kMsg, client.getClone(), logger);
+				} else if(kMsg.getAddress().equals("/" + Client.USERNAME + "/addr3")) {
+					client.getClientCallBack().getContractManager().runFunction("addr3.py", "main", kMsg, client.getClone(), logger);
 				}	
 			}
 		} catch (NoSuchMethodException e) {
@@ -46,5 +47,8 @@ public class CacheCallback implements MemCacheCallback {
 	}
 
 	@Override
-	public void removeData(KMessage msg) {}
+	public void removeData(KMessage arg0, KMessage arg1) {
+		// TODO Auto-generated method stub
+		
+	}
 }
