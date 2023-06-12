@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "start": "node app.js",
+    "format": "prettier --write app.js routes/"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "btoa": "^1.2.1",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2"
+  }
+}

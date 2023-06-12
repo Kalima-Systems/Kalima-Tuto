@@ -1,0 +1,1 @@
+var fs=require("fs"),utils={getRandomFileName:function(){return Math.random().toString(36).substring(2,15)+Math.random().toString(36).substring(2,15)},writeFifo:function(t,r){t=fs.createWriteStream(t);t.on("error",function(t){console.log(t),this.end()}),t.write(r),t.end()}};module.exports=utils;
