@@ -61,6 +61,8 @@ struct Client
     uint16_t port;                                                                        /**< Port of server to connect to */
     uint8_t awaitingIHY;                                                                  /**< Act as boolean to see if a message has been received since last KEEPALIVE_INTERVAL */
     uint8_t messageSent;                                                                  /**< Act as boolean to see if a message has been sent since last KEEPALIVE_INTERVAL */
+    unsigned char ayt[17];
+    unsigned char ihy[17];
     pthread_mutex_t msgsentLock;                                                          /**< Mutex protecting messageSent */
     SkipList_t *data_recv, *pending_data, *write_data, *pending_message;                  /**< Different skiplist that act as pending buffers (data_recv : data received / pending_data : data to be sent / write_data : to be sure that data is received by blockchain / pending_message : stock pendings when deconnected) */
     Buffer *buffer;                                                                       /**< Buffer to be treated (Concatenation of data_recv) */

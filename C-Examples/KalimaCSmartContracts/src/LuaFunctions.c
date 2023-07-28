@@ -37,7 +37,7 @@ int LuaPutMsg(lua_State*L){
     return 0;
 }
 
-int LuaStrlen(lua_State*L){
+int LuaStrLen(lua_State*L){
     char* string = (char*)lua_tostring(L,1);
     int size = (int)strlen(string);
     lua_pushinteger(L, size);

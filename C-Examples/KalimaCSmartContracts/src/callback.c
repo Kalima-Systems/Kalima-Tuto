@@ -96,8 +96,8 @@ void putData(void* clone_ptr, KMessage* Kmessage){
         lua_setglobal(Lua_contract->L, "LuaPutMsg");
         lua_pushcfunction(Lua_contract->L,LuaPutLog);
         lua_setglobal(Lua_contract->L, "LuaPutLog");
-        lua_pushcfunction(Lua_contract->L,LuaStrlen);
-        lua_setglobal(Lua_contract->L, "LuaStrlen");
+        lua_pushcfunction(Lua_contract->L,LuaStrLen);
+        lua_setglobal(Lua_contract->L, "LuaStrLen");
         lua_pushlightuserdata(Lua_contract->L,(void*)kmsg);
         lua_pushlightuserdata(Lua_contract->L,(void*)clone->node);
         lua_pcall(Lua_contract->L, 2, 0, 0);

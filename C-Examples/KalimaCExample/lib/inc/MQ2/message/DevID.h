@@ -21,7 +21,6 @@
  */
 #define MACAddr_size 6
 
-unsigned char MacAddress[MACAddr_size];
 /**
  * @brief Set a random MAC Address
  *
@@ -38,7 +37,7 @@ void random_MACAddress(char macAddr[MACAddr_size]);
 #if __linux__
 int8_t get_MACAddress(char macAddr[MACAddr_size]);
 #elif __APPLE__
-void get_MACAddress(unsigned char macAddr[MACAddr_size]);
+int8_t get_MACAddress(unsigned char macAddr[MACAddr_size]);
 #endif
 
 /**

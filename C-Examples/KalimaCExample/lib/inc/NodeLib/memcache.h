@@ -235,5 +235,4 @@ void set_Kvmap(MemCache* memcache, SkipList_t *kvmap2);
  */
 void print_kvLists(MemCache* memcache);
 
-
 #endif

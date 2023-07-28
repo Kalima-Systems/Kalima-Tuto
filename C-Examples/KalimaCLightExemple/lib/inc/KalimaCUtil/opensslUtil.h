@@ -10,10 +10,9 @@
  * 
  * @param key Input string
  * @param key_size Input string size
- * @param toRemove Character to remove
  * @return uint16_t 
  */
-uint16_t remove_from_key(unsigned char * key, uint16_t key_size, const char toRemove);
+uint16_t remove_from_key(unsigned char * key, uint16_t key_size);
 /**
  * @brief Calculates the length of a decoded base64 string
  * @details Used in Base64Decode()

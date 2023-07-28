@@ -27,39 +27,13 @@
 void mkdirr(const char *dir);
 
 /**
- * @brief Get number of "c" character in string
- * 
- * @param string Char array to analyze
- * @param c Character to look for
- * @return Number of occurence
- */
-int get_nb_occurence(char* string, char c);
-/**
- * @brief Get part of string after last occurence of a character
- * @details Can be usefull to get file name from full path
- * 
- * @param string Char array to analyze
- * @param c Character to look for
- * @param nb_of_c Number of occurence of "c"
- * @return The part of the string after last occurence 
- */
-char* get_after_last_occurence(char* string, char c, int nb_of_c);
-/**
- * @brief Transform a hexadecimal array to a char array
- * 
- * @param src Hex array
- * @param out Output char array
- * @param size size of the hex array
- */
-void hex_to_charArray(unsigned char* src, unsigned char* out, int32_t size);
-/**
  * @brief Hexadecimal to string
  * 
  * @param hex Hex array
  * @param len Hex array size
  * @return String
  */
-char* hex2str(unsigned char *hex,int len);
+char* str2hex(unsigned char *str,int len);
 /**
  * @brief Get number of characters in an integer (ex : 1026 = 4)
  * 
@@ -67,14 +41,6 @@ char* hex2str(unsigned char *hex,int len);
  * @return Number of characters
  */
 uint8_t get_int_len (int64_t value);
-/**
- * @brief Equivalent of math.h ceil
- * 
- * @param a a
- * @param b b
- * @return int32_t 
- */
-int32_t calculate_ceil(int a, int b);
 /**
  * @brief Copy data into secured string
  * 
@@ -84,7 +50,7 @@ int32_t calculate_ceil(int a, int b);
  * @return On success : 1 @n
  *         On failure : -1
  */
-int8_t set_String(void* data, uint16_t data_size, void** string);
+int8_t set_String(void* data, uint32_t data_size, void** string);
 
 /**
  * @brief Strncmp that automaticaly takes highest length
@@ -94,15 +60,5 @@ int8_t set_String(void* data, uint16_t data_size, void** string);
  * @return Same as strncmp
  */
 int string_compare(char* str1, char* str2);
-
-/**
- * @brief Get seed for rand
- * 
- * @param a clock
- * @param b time
- * @param c pid
- * @return seed
- */
-unsigned long mix(unsigned long a, unsigned long b, unsigned long c);
 
 #endif

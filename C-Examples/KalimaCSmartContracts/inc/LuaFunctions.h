@@ -34,7 +34,7 @@ int LuaPutMsg(lua_State*L);
  * @param L Lua state
  * @return 1 
  */
-int LuaStrlen(lua_State*L);
+int LuaStrLen(lua_State*L);
 /**
  * @brief Function that will be used in Lua contract to print string to Logs (In contract LuaPutLog(void* node, string log_msg))
  * 

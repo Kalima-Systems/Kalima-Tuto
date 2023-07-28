@@ -59,7 +59,7 @@ Buffer *create_Buffer();
  * @return On success : 1 @n
  *         On failure : -1
  */
-int8_t Buffer_add(Buffer *buf, void* data, uint16_t data_size);
+int8_t Buffer_add(Buffer *buf, char* data, uint16_t data_size);
 
 /**
  * @brief Delete data_size characters from the start of the buffer

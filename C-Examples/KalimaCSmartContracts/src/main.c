@@ -51,8 +51,7 @@ void send_10_messages(Node *node){
         snprintf(body, body_size+1, "%d", 95+i);
         char key[5];
         snprintf(key, 5, "%s%d", "key", i);
-        //put_msg_default(node->clone, "/demo/temperature", 17, key, 4, body, body_size);
-        put_msg_with_ttl(node->clone, "/sensors", 17, key, 4, body, body_size, 10);
+        put_msg_with_ttl(node->clone, "/sensors", 8, key, 4, body, body_size, 10);
 		sleep(1);
 	}
 }
@@ -64,7 +63,6 @@ void send_modulable_message(Node *node){
     while(strncmp(choice, "a", 1) != 0 && strncmp(choice, "d", 1) != 0){
        printf("Do you want to add (a) or delete (d) ?\n");
        fgets(choice, sizeof(choice), stdin);
-
     }
     printf("Type the address you want to interact with :\n");
     fgets(address, sizeof(address), stdin);
